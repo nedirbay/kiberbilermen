@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block title %}{{ port.number }}/{{ port.transport|upper }} · Ports{% endblock %}
+
+{% block content %}
+  <div class="card">
+    <h1>{{ port.number }}/{{ port.transport|upper }} — {{ port.service_name }}</h1>
+    <p class="muted">{{ port.get_category_display }}</p>
+
+    <h2>Näme edýär</h2>
+    <p>{{ port.what_it_does }}</p>
+
+    {% if port.where_used %}
+      <h2>Nirede ulanylýar</h2>
+      <p>{{ port.where_used }}</p>
+    {% endif %}
+
+    {% if port.security_risks %}
+      <h2>Howpsuzlyk töwekgelçiligi</h2>
+      <p>{{ port.security_risks }}</p>
+    {% endif %}
+  </div>
+{% endblock %}
+

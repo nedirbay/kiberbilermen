@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% block title %}Home · Kiberbilermen{% endblock %}
+
+{% block content %}
+  <div class="card">
+    <h1>Kiber howpsuzlyk</h1>
+    <p class="muted">“Kiber howpsuzlyk – diňe tehnologiýa däl, ol gorag medeniýetidir”.</p>
+    <p>
+      Bu sahypa portlar, protokollar, kiber hüjümler we gorag usullary boýunça ýönekeý we amaly düşündiriş berýär.
+    </p>
+  </div>
+
+  <div class="grid">
+    <div class="card">
+      <h2>Gysgaça</h2>
+      <p>Kiber howpsuzlyk – maglumatlary, ulgamlary we ulanyjylary howplardan goramak.</p>
+    </div>
+    <div class="card">
+      <h2>Häzirki ýagdaý</h2>
+      <p>Dünýäde kiber hüjümleri köpelýär: döwlet, bank we şahsy maglumatlar üçin risk ýokary.</p>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Taryh (gysga)</h2>
+    {% if history_events %}
+      <ul>
+        {% for e in history_events %}
+          <li>
+            <strong>{{ e.title }}</strong>
+            <span class="muted">({{ e.year_start }}{% if e.year_end %}–{{ e.year_end }}{% endif %})</span>
+            <div class="muted">{{ e.description }}</div>
+          </li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p class="muted">Admin arkaly “HistoryEvent” goşup bilersiňiz.</p>
+    {% endif %}
+  </div>
+
+  {% if highlights %}
+    <div class="card">
+      <h2>Bellikler</h2>
+      <ul>
+        {% for h in highlights %}
+          <li><strong>{{ h.title }}</strong>: {{ h.body }}</li>
+        {% endfor %}
+      </ul>
+    </div>
+  {% endif %}
+{% endblock %}
+

@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}About · Kiberbilermen{% endblock %}
+
+{% block content %}
+  <div class="card">
+    <h1>Biz barada</h1>
+    {% if project %}
+      <h2>Maksat</h2>
+      <p>{{ project.goal }}</p>
+
+      {% if project.audience %}
+        <h2>Kim üçin</h2>
+        <p>{{ project.audience }}</p>
+      {% endif %}
+
+      {% if project.author_name or project.author_bio %}
+        <h2>Awtor</h2>
+        <p><strong>{{ project.author_name }}</strong></p>
+        <p class="muted">{{ project.author_bio }}</p>
+      {% endif %}
+
+      {% if project.future_plans %}
+        <h2>Geljek meýilnamalar</h2>
+        <p>{{ project.future_plans }}</p>
+      {% endif %}
+    {% else %}
+      <p class="muted">Admin arkaly “ProjectInfo” girizip bilersiňiz.</p>
+    {% endif %}
+  </div>
+{% endblock %}
+

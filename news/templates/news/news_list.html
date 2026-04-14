@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}News · Kiberbilermen{% endblock %}
+
+{% block content %}
+  <div class="card">
+    <h1>Täzelikler</h1>
+    <p class="muted">Proýekti “janly” edýän bölüm: täze hüjümler, data breach, AI howpsuzlyk.</p>
+    <form method="get" class="row">
+      <div>
+        <label>Category</label>
+        <select name="category">
+          <option value="">All</option>
+          {% for value,label in categories.choices %}
+            <option value="{{ value }}" {% if selected_category == value %}selected{% endif %}>{{ label }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div>
+        <label>Search</label>
+        <input name="q" value="{{ q }}" placeholder="ransomware..." />
+      </div>
+      <div>
+        <button type="submit">Filter</button>
+      </div>
+    </form>
+  </div>
+
+  {% if items %}
+    {% for n in items %}
+      <div class="card">
+        <div style="display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap">
+          <strong>{{ n.title }}</strong>
+          <span class="muted">{{ n.published_at }} · {{ n.get_category_display }}</span>
+        </div>
+        <div class="muted">{{ n.content|truncatewords:28 }}</div>
+        <div><a href="{% url 'news:detail' n.pk %}">Read</a></div>
+      </div>
+    {% endfor %}
+  {% else %}
+    <div class="card muted">Admin arkaly “NewsItem” ýazgylaryny goşuň.</div>
+  {% endif %}
+{% endblock %}
+

@@ -1,0 +1,34 @@
+{% extends "base.html" %}
+
+{% block title %}{{ protocol.name }} · Protocols{% endblock %}
+
+{% block content %}
+  <div class="card">
+    <h1>{{ protocol.name }}</h1>
+    <p class="muted">{{ protocol.get_category_display }}</p>
+
+    <h2>Näme üçin döredildi</h2>
+    <p>{{ protocol.purpose }}</p>
+
+    <h2>Nädip işleýär</h2>
+    <p>{{ protocol.how_it_works }}</p>
+
+    {% if protocol.real_world_use %}
+      <h2>Real durmuşda ulanylyşy</h2>
+      <p>{{ protocol.real_world_use }}</p>
+    {% endif %}
+
+    {% if protocol.security_notes %}
+      <h2>Howpsuzlyk meselesi</h2>
+      <p>{{ protocol.security_notes }}</p>
+    {% endif %}
+
+    {% if protocol.highlight_dns %}
+      <div class="card" style="background:#fef9c3;border-color:#fde047">
+        <strong>DNS aýratyn</strong>
+        <div class="muted">DNS (Domain Name System) domenleri IP salgylarına öwürýär. Poisoning / spoofing ýaly howplara üns beriň.</div>
+      </div>
+    {% endif %}
+  </div>
+{% endblock %}
+

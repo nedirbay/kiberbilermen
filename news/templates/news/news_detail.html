@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}{{ item.title }} · News{% endblock %}
+
+{% block content %}
+  <div class="card">
+    <h1>{{ item.title }}</h1>
+    <p class="muted">{{ item.published_at }} · {{ item.get_category_display }}</p>
+    {% if item.image_url %}
+      <p><a href="{{ item.image_url }}" target="_blank" rel="noreferrer">Image</a></p>
+    {% endif %}
+    <p>{{ item.content|linebreaks }}</p>
+  </div>
+{% endblock %}
+

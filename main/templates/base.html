@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{% block title %}Kiberbilermen{% endblock %}</title>
+    <style>
+      body { font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; margin: 0; }
+      header { background: #0b1220; color: #fff; padding: 14px 18px; }
+      header a { color: #fff; text-decoration: none; margin-right: 12px; opacity: 0.9; }
+      header a:hover { opacity: 1; text-decoration: underline; }
+      main { padding: 18px; max-width: 980px; margin: 0 auto; }
+      .card { border: 1px solid #e5e7eb; border-radius: 12px; padding: 14px; margin: 12px 0; }
+      .muted { color: #6b7280; }
+      .grid { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
+      input, select, textarea { padding: 8px; border: 1px solid #d1d5db; border-radius: 8px; }
+      button { padding: 8px 12px; border: 0; border-radius: 8px; background: #2563eb; color: #fff; cursor: pointer; }
+      button:hover { background: #1d4ed8; }
+      .row { display: flex; gap: 10px; flex-wrap: wrap; align-items: end; }
+      .row > div { display: flex; flex-direction: column; gap: 6px; }
+    </style>
+  </head>
+  <body>
+    <header>
+      <nav>
+        <a href="{% url 'main:home' %}">Home</a>
+        <a href="{% url 'ports:list' %}">Ports</a>
+        <a href="{% url 'protocols:list' %}">Protocols</a>
+        <a href="{% url 'attacks:list' %}">Attacks</a>
+        <a href="{% url 'defense:list' %}">Defense</a>
+        <a href="{% url 'news:list' %}">News</a>
+        <a href="{% url 'about:about' %}">About</a>
+        <span style="float:right">
+          {% if user.is_authenticated %}
+            <a href="{% url 'accounts:profile' %}">My account</a>
+            <a href="{% url 'accounts:logout' %}">Logout</a>
+          {% else %}
+            <a href="{% url 'accounts:login' %}">Login</a>
+            <a href="{% url 'accounts:register' %}">Register</a>
+          {% endif %}
+        </span>
+      </nav>
+    </header>
+    <main>
+      {% if messages %}
+        <div class="card">
+          {% for message in messages %}
+            <div class="muted">{{ message }}</div>
+          {% endfor %}
+        </div>
+      {% endif %}
+      {% block content %}{% endblock %}
+    </main>
+  </body>
+</html>
+

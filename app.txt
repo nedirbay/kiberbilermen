@@ -1,0 +1,154 @@
+1. MAIN (Baş sahypa)
+
+Bu sahypa diňe “giriş” däl — ulanyjynyň ilkinji täsirini döredýär.
+
+Bolmaly zatlar:
+1. Şygar (Hero section)
+Gysga, täsirli tekst
+
+Mysal:
+
+“Kiber howpsuzlyk – diňe tehnologiýa däl, ol gorag medeniýetidir”
+
+2. Gysgaça düşündiriş
+Kiber howpsuzlygyň nämedigi
+Näme üçin möhüm
+3. Taryh (gysga görnüşde)
+Ilkinji wiruslar (1980–1990)
+Internet giňelmegi bilen howplar
+Häzirki döwür (AI, ransomware)
+
+👉 Bu ýerde Kiber howpsuzlyk düşünjesini ýönekeý dilde açyp bermeli.
+
+4. Häzirki ýagdaý
+Dünýäde kiber hüjümleriň köpelmegi
+Döwlet, bank, şahsy maglumat howplary
+5. Sahypa bölümlerine geçiş
+Portlar
+Protokollar
+Hüjümler
+Gorag
+
+👉 Bu UX taýdan möhüm
+
+🌐 2. PORTS (Portlar)
+
+Bu sahypa “sanlar sanawy” bolmaly däl — tehniki düşündiriş + amaly ulanylyş bolmaly.
+
+Her port üçin:
+Port belgisi (80, 443, 22…)
+Protokol (TCP/UDP)
+Ady (HTTP, HTTPS, SSH)
+Näme edýär
+Nirede ulanylýar
+Howpsuzlyk töwekgelçiligi
+Mysal düşündiriş:
+Port 80 → HTTP → açyk trafik
+Port 443 → HTTPS → şifrlenen trafik
+
+👉 Bu ýerde TCP/IP modeli gysgaça düşündirilmeli
+
+Goşmaça:
+“Well-known ports”
+“Registered ports”
+🌍 3. PROTOCOLS (Internet protokollar)
+
+Bu iň möhüm bölümleriň biri.
+
+Her protokol üçin:
+Ady (HTTP, FTP, DNS, TCP, IP)
+Näme üçin döredildi
+Nädip işleýär
+Real durmuşda ulanylyşy
+Howpsuzlyk meselesi
+Mysallar:
+HTTP → web sahypa geçirmek
+DNS → domen → IP öwürmek
+FTP → faýl geçirmek
+
+👉 Bu ýerde DNS (Domain Name System) aýratyn düşündirilmeli
+
+Möhüm zat:
+Protokollary kategoriýalara böl:
+Transport
+Application
+Network
+💣 4. ATTACKS (Kiber hüjümler)
+
+Bu sahypa diňe teoriýa bolmaly däl — real dünýä mysallary bilen.
+
+Her hüjüm üçin:
+Ady
+Näme edýär
+Nädip işleýär
+Maksady
+Mysal
+Nädip öňüni almaly
+Esasy görnüşler:
+Phishing
+DDoS
+Malware
+Man-in-the-middle
+
+👉 Mysal:
+Phishing
+
+Goşmaça:
+Diagramma (frontendde soň goşarsyň)
+“Real case” düşündiriş
+🛡️ 5. DEFENSE (Kiber gorag programmalar)
+
+Bu ýerde diňe programma sanawy däl — näme üçin gerek + nähili işleýär diýen soraga jogap bolmaly.
+
+Bölümler:
+1. Antiviruslar
+Wiruslary tapýar we ýok edýär
+2. Firewall
+Trafiki gözegçilik edýär
+
+👉 Firewall düşünjesini aç
+
+3. IDS / IPS
+Hüjümleri ýüze çykarýar
+4. Encryption
+Maglumaty şifrleýär
+📰 6. NEWS (Täzelikler)
+
+Bu sahypa seniň proýektiňi “janly” edýär.
+
+Her täzelik:
+Başlyk
+Mazmun
+Senesi
+Kategoriýa
+Surat
+Mazmun:
+Täze hüjümler
+Data breach
+AI howpsuzlyk
+
+👉 Mysal:
+
+Bank hack edildi
+Global ransomware hüjümi
+👤 7. ABOUT (Biz barada)
+
+Bu sahypa köplenç pes bahalandyrylýar, ýöne möhüm.
+
+Bolmaly zatlar:
+Proýektiň maksady
+Kim üçin döredildi
+Seniň maglumatlaryň (isleseň)
+Geljek meýilnamalar
+
+8. Accounts app
+
+Bu sahypa ulanyjy üçin “howpsuzlyk merkezi” bolmaly.
+register we login ýaly funksiýalar bolmaly.COUNTS (Auth sistemi)
+
+Bu diňe “login/register” däl. Bu:
+
+ulanyjy dolandyryşy
+ygtyýar (authorization)
+howpsuzlyk
+rol sistemi

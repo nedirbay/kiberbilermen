@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block title %}{{ attack.name }} · Attacks{% endblock %}
+
+{% block content %}
+  <div class="card">
+    <h1>{{ attack.name }}</h1>
+    <p class="muted">{{ attack.get_attack_type_display }}</p>
+
+    <h2>Näme edýär</h2>
+    <p>{{ attack.what_it_does }}</p>
+
+    <h2>Nädip işleýär</h2>
+    <p>{{ attack.how_it_works }}</p>
+
+    {% if attack.goal %}
+      <h2>Maksady</h2>
+      <p>{{ attack.goal }}</p>
+    {% endif %}
+
+    {% if attack.example %}
+      <h2>Mysal</h2>
+      <p>{{ attack.example }}</p>
+    {% endif %}
+
+    {% if attack.prevention %}
+      <h2>Nädip öňüni almaly</h2>
+      <p>{{ attack.prevention }}</p>
+    {% endif %}
+  </div>
+{% endblock %}
+

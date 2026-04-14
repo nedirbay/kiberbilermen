@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+
+{% block title %}Ports · Kiberbilermen{% endblock %}
+
+{% block content %}
+  <div class="card">
+    <h1>Portlar</h1>
+    <p class="muted">Port – hyzmatyň/serweriň tor boýunça kabul edýän “gapysy”.</p>
+    <form method="get" class="row">
+      <div>
+        <label>Category</label>
+        <select name="category">
+          <option value="">All</option>
+          {% for value,label in categories.choices %}
+            <option value="{{ value }}" {% if selected_category == value %}selected{% endif %}>{{ label }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div>
+        <label>Transport</label>
+        <select name="transport">
+          <option value="">All</option>
+          {% for value,label in transports.choices %}
+            <option value="{{ value }}" {% if selected_transport == value %}selected{% endif %}>{{ label }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div>
+        <label>Search</label>
+        <input name="q" value="{{ q }}" placeholder="HTTP, SSH..." />
+      </div>
+      <div>
+        <button type="submit">Filter</button>
+      </div>
+    </form>
+  </div>
+
+  {% if ports %}
+    {% for p in ports %}
+      <div class="card">
+        <div><strong>{{ p.number }}/{{ p.transport|upper }}</strong> — {{ p.service_name }} <span class="muted">({{ p.get_category_display }})</span></div>
+        <div class="muted">{{ p.what_it_does|truncatewords:24 }}</div>
+        <div><a href="{% url 'ports:detail' p.pk %}">Details</a></div>
+      </div>
+    {% endfor %}
+  {% else %}
+    <div class="card muted">Soňkyra admin arkaly “Port” ýazgylaryny goşuň.</div>
+  {% endif %}
+{% endblock %}
+

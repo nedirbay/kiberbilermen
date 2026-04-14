@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+
+{% block title %}My Account · Kiberbilermen{% endblock %}
+
+{% block content %}
+  <div class="card">
+    <h1>My account</h1>
+    <p><strong>Username:</strong> {{ request.user.username }}</p>
+    <p><strong>Role:</strong> {{ profile.get_role_display }}</p>
+    {% if profile.bio %}
+      <p class="muted">{{ profile.bio }}</p>
+    {% endif %}
+    <p class="muted">Rol/ygtyýar giňeltmesi soňra toparlar (Groups) we Permissions bilen edilip biler.</p>
+  </div>
+{% endblock %}
+

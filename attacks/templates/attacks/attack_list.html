@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+
+{% block title %}Attacks · Kiberbilermen{% endblock %}
+
+{% block content %}
+  <div class="card">
+    <h1>Kiber hüjümler</h1>
+    <p class="muted">Teoriýa + real mysallar + öňüni almak usullary.</p>
+    <form method="get" class="row">
+      <div>
+        <label>Type</label>
+        <select name="type">
+          <option value="">All</option>
+          {% for value,label in types.choices %}
+            <option value="{{ value }}" {% if selected_type == value %}selected{% endif %}>{{ label }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      <div>
+        <label>Search</label>
+        <input name="q" value="{{ q }}" placeholder="Phishing..." />
+      </div>
+      <div>
+        <button type="submit">Filter</button>
+      </div>
+    </form>
+  </div>
+
+  {% if attacks %}
+    {% for a in attacks %}
+      <div class="card">
+        <div><strong>{{ a.name }}</strong> <span class="muted">({{ a.get_attack_type_display }})</span></div>
+        <div class="muted">{{ a.what_it_does|truncatewords:24 }}</div>
+        <div><a href="{% url 'attacks:detail' a.pk %}">Details</a></div>
+      </div>
+    {% endfor %}
+  {% else %}
+    <div class="card muted">Admin arkaly “Attack” ýazgylaryny goşuň.</div>
+  {% endif %}
+{% endblock %}
+

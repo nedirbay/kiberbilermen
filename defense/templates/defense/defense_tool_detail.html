@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}{{ tool.name }} · Defense{% endblock %}
+
+{% block content %}
+  <div class="card">
+    <h1>{{ tool.name }}</h1>
+    <p class="muted">{{ tool.get_category_display }}</p>
+
+    <h2>Näme üçin gerek</h2>
+    <p>{{ tool.why_needed }}</p>
+
+    <h2>Nähili işleýär</h2>
+    <p>{{ tool.how_it_works }}</p>
+  </div>
+{% endblock %}
+
