@@ -84,6 +84,7 @@ JAZZMIN_SETTINGS = {
         "about.ProjectInfo": "fas fa-info-circle",
     },
     "order_with_respect_to": ["accounts", "attacks", "defense", "news", "protocols", "ports", "about", "main"],
+    "use_google_fonts": False,
 }
 
 MIDDLEWARE = [
