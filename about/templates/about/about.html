@@ -4,85 +4,131 @@
 {% block title %}Biz Barada · Kiberbilermen{% endblock %}
 
 {% block content %}
-<div class="header-section" style="margin-bottom: 48px;">
-    <h1>Biz Barada</h1>
-    <p style="color: var(--text-muted); font-size: 1.1rem;">Sanly dünýäniň howpsuzlygyny öwredýän we goldaýan platforma.</p>
-</div>
-
-<div style="display: grid; grid-template-columns: 1fr 400px; gap: 32px; align-items: start;">
-    
-    <!-- Main Info -->
-    <div class="about-main">
-        <div class="card glass" style="padding: 40px; margin-bottom: 32px; position: relative; overflow: hidden;">
-            <div style="position: absolute; right: -50px; top: -50px; opacity: 0.05;">
-                <svg width="300" height="300" viewBox="0 0 24 24" fill="var(--primary)"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path></svg>
-            </div>
-            
-            <h2 style="color: var(--primary); margin-bottom: 20px;">Taslamanyň Maksady</h2>
-            <div style="font-size: 1.15rem; line-height: 1.8; color: var(--text-main);">
+<div class="about-container">
+    <!-- Immersive Hero Section -->
+    <section class="about-hero glass" style="margin-bottom: 80px; position: relative; overflow: hidden; padding: 120px 60px; border-radius: 24px; text-align: center;">
+        <div class="scanner-line"></div>
+        <div style="position: relative; z-index: 2;">
+            <h1 style="font-size: 5rem; font-weight: 900; letter-spacing: -2px; margin-bottom: 24px; background: linear-gradient(to bottom, #fff, rgba(255,255,255,0.3)); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">KIBERBILERMEN</h1>
+            <p style="font-size: 1.5rem; color: var(--primary); font-weight: 500; text-transform: uppercase; letter-spacing: 4px; margin-bottom: 40px;">Sanly Howpsuzlyk Akademiýasy</p>
+            <div style="max-width: 800px; margin: 0 auto; line-height: 1.8; font-size: 1.2rem; color: var(--text-muted);">
                 {% if project %}
-                    {{ project.goal|linebreaks }}
+                    {{ project.goal }}
                 {% else %}
-                    <p class="muted">Kiberbilermen — Türkmenistanda kiber-howpsuzlyk medeniýetini ösdürmek we ýaşlara bu ugurda bilim bermek maksady bilen döredilen platformadyr.</p>
+                    Türkmenistanda kiber-howpsuzlyk medeniýetini ösdürmek we ýaşlara bu ugurda dünýä standartlaryna laýyk bilim bermek maksady bilen döredilen innowasion platforma.
                 {% endif %}
             </div>
         </div>
+        
+        <!-- Background Decorative Elements -->
+        <div style="position: absolute; top: -10%; left: -10%; width: 40%; height: 60%; background: radial-gradient(circle, var(--primary-glow) 0%, transparent 70%); opacity: 0.1; filter: blur(60px); pointer-events: none;"></div>
+        <div style="position: absolute; bottom: -10%; right: -10%; width: 40%; height: 60%; background: radial-gradient(circle, var(--secondary-glow) 0%, transparent 70%); opacity: 0.1; filter: blur(60px); pointer-events: none;"></div>
+    </section>
 
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 24px;">
-            <div class="card glass" style="padding: 32px;">
-                <h3 style="font-size: 1.2rem; margin-bottom: 16px; color: var(--secondary);">Kimler üçin?</h3>
-                <p style="color: var(--text-muted); line-height: 1.6;">
-                    {% if project.audience %}
-                        {{ project.audience }}
-                    {% else %}
-                        Talyplar, IT hünärmenleri we öz maglumatlaryny goramagy öwrenmek isleýän ähli ulanyjylar üçin.
-                    {% endif %}
-                </p>
-            </div>
-            <div class="card glass" style="padding: 32px;">
-                <h3 style="font-size: 1.2rem; margin-bottom: 16px; color: var(--warning);">Geljegi</h3>
-                <p style="color: var(--text-muted); line-height: 1.6;">
-                    {% if project.future_plans %}
-                        {{ project.future_plans }}
-                    {% else %}
-                        Platformany doly kiber-howpsuzlyk akademiýasyna öwürmek we täze interaktiw labaratoriýalary goşmak.
-                    {% endif %}
-                </p>
-            </div>
+    <!-- Core Values / Data Points -->
+    <section style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 24px; margin-bottom: 80px;">
+        <div class="card glass status-card" style="padding: 30px; text-align: center; border-bottom: 3px solid var(--primary);">
+            <div style="font-size: 0.8rem; color: var(--primary); font-weight: 700; margin-bottom: 12px; text-transform: uppercase;">Ulgamyň Ýagdaýy</div>
+            <div style="font-size: 1.8rem; font-weight: 700;">ONLINE</div>
         </div>
-    </div>
+        <div class="card glass status-card" style="padding: 30px; text-align: center; border-bottom: 3px solid var(--secondary);">
+            <div style="font-size: 0.8rem; color: var(--secondary); font-weight: 700; margin-bottom: 12px; text-transform: uppercase;">Giriş Hukugy</div>
+            <div style="font-size: 1.8rem; font-weight: 700;">MUGT</div>
+        </div>
+        <div class="card glass status-card" style="padding: 30px; text-align: center; border-bottom: 3px solid var(--warning);">
+            <div style="font-size: 0.8rem; color: var(--warning); font-weight: 700; margin-bottom: 12px; text-transform: uppercase;">Maksady</div>
+            <div style="font-size: 1.8rem; font-weight: 700;">BILIM</div>
+        </div>
+        <div class="card glass status-card" style="padding: 30px; text-align: center; border-bottom: 3px solid #fff;">
+            <div style="font-size: 0.8rem; color: var(--text-dim); font-weight: 700; margin-bottom: 12px; text-transform: uppercase;">Versiýa</div>
+            <div style="font-size: 1.8rem; font-weight: 700;">v2.0</div>
+        </div>
+    </section>
 
-    <!-- Sidebar / Author -->
-    <div class="about-sidebar">
-        <div class="card glass" style="padding: 32px; text-align: center;">
-            <div style="width: 100px; height: 100px; background: linear-gradient(45deg, var(--primary), var(--secondary)); border-radius: 50%; margin: 0 auto 20px; display: flex; align-items: center; justify-content: center; font-size: 2rem; font-weight: 700; color: white; border: 4px solid rgba(255,255,255,0.1);">
-                {% if project.author_name %}
-                    {{ project.author_name|slice:":1" }}
+    <!-- Detailed Sections -->
+    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-bottom: 80px;">
+        <div class="card glass" style="padding: 48px; border-left: 4px solid var(--secondary);">
+            <div style="display: flex; align-items: center; gap: 20px; margin-bottom: 32px;">
+                <div style="width: 60px; height: 60px; background: rgba(0, 187, 255, 0.1); border: 1px solid var(--secondary); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: var(--secondary);">
+                    <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" height="2em" width="2em" xmlns="http://www.w3.org/2000/svg"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                </div>
+                <h3 style="font-size: 1.8rem;">Kimler üçin?</h3>
+            </div>
+            <p style="font-size: 1.1rem; line-height: 1.8; color: var(--text-muted);">
+                {% if project.audience %}
+                    {{ project.audience }}
                 {% else %}
-                    KB
+                    Platformamyz talyplar, IT hünärmenleri we internetde öz howpsuzlygyny üpjün etmek isleýän ähli türkmenistanlylar üçin açykdyr. Biz çylşyrymly tehnologiýalary ýönekeý dilde düşündirýäris.
                 {% endif %}
-            </div>
-            
-            <h4 style="font-size: 1.4rem; margin-bottom: 4px;">{{ project.author_name|default:"Nedirbaý" }}</h4>
-            <p style="color: var(--primary); font-size: 0.9rem; font-weight: 600; text-transform: uppercase;">Taslamanyň Awtory</p>
-            
-            <div style="margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--border-main); text-align: left;">
-                <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.6;">
-                    {{ project.author_bio|default:"Kiberhowpsuzlyk boýunça hünärmen we programmist. Bu taslamany bilim bermek maksady bilen döretdi." }}
-                </p>
-            </div>
+            </p>
         </div>
 
-        <div class="card glass" style="margin-top: 24px; padding: 24px;">
-            <h4 style="margin-bottom: 16px; font-size: 1rem;">Habarlaşmak</h4>
-            <ul class="icon-list" style="gap: 12px; font-size: 0.9rem;">
-                <li>
-                    <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2-2-2z"></path><polyline points="22,6 12,13 2,6"></polyline></svg>
-                    info@kiberbilermen.com
-                </li>
-            </ul>
+        <div class="card glass" style="padding: 48px; border-top: 4px solid var(--warning);">
+            <div style="display: flex; align-items: center; gap: 20px; margin-bottom: 32px;">
+                <div style="width: 60px; height: 60px; background: rgba(255, 170, 0, 0.1); border: 1px solid var(--warning); border-radius: 12px; display: flex; align-items: center; justify-content: center; color: var(--warning);">
+                    <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" height="2em" width="2em" xmlns="http://www.w3.org/2000/svg"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+                </div>
+                <h3 style="font-size: 1.8rem;">Geljegimiz</h3>
+            </div>
+            <p style="font-size: 1.1rem; line-height: 1.8; color: var(--text-muted);">
+                {% if project.future_plans %}
+                    {{ project.future_plans }}
+                {% else %}
+                    Biziň esasy maksadymyz — interaktiw kiber-labaratoriýalary döretmek, milli kiber-howpsuzlyk bäsleşiklerini geçirmek we ýurduň iň uly IТ bilim binýadyna öwrülmek.
+                {% endif %}
+            </p>
         </div>
     </div>
-
 </div>
+
+<style>
+    .about-container {
+        padding: 40px 100px;
+        max-width: 1600px;
+        margin: 0 auto;
+    }
+
+    .scanner-line {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 2px;
+        background: linear-gradient(to right, transparent, var(--primary), transparent);
+        opacity: 0.5;
+        animation: scan 4s linear infinite;
+        z-index: 1;
+    }
+
+    @keyframes scan {
+        0% { transform: translateY(-50px); }
+        100% { transform: translateY(600px); }
+    }
+
+    .status-card {
+        transition: all 0.3s ease;
+        cursor: default;
+    }
+    
+    .status-card:hover {
+        transform: translateY(-8px);
+        background: rgba(255,255,255,0.08);
+        box-shadow: 0 10px 30px rgba(0, 187, 255, 0.1);
+    }
+
+    .profile-glow {
+        position: relative;
+    }
+
+    .profile-glow::after {
+        content: "";
+        position: absolute;
+        inset: -15px;
+        background: var(--primary);
+        filter: blur(40px);
+        opacity: 0.15;
+        border-radius: 40px;
+        z-index: -1;
+    }
+</style>
 {% endblock %}

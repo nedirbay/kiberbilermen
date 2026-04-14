@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'jazzmin',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -46,6 +47,39 @@ INSTALLED_APPS = [
     'about',
     'accounts',
 ]
+
+JAZZMIN_SETTINGS = {
+    "site_title": "Kiberbilermen Admin",
+    "site_header": "Kiberbilermen",
+    "site_brand": "Kiberbilermen",
+    "welcome_sign": "Kiberbilermen dolandyryş paneline hoş geldiňiz!",
+    "copyright": "Kiberbilermen © 2026",
+    "search_model": ["auth.User", "attacks.Attack"],
+    "user_avatar": None,
+    "topmenu_links": [
+        {"name": "Baş sahypa", "url": "admin:index", "permissions": ["auth.view_user"]},
+        {"name": "Saýta geç", "url": "/", "new_window": True},
+    ],
+    "show_sidebar": True,
+    "navigation_expanded": True,
+    "hide_apps": [],
+    "hide_models": [],
+    "icons": {
+        "auth": "fas fa-users-cog",
+        "auth.user": "fas fa-user",
+        "auth.Group": "fas fa-users",
+        "accounts.UserProfile": "fas fa-id-card",
+        "attacks.Attack": "fas fa-user-shield",
+        "defense.DefenseTool": "fas fa-shield-alt",
+        "news.NewsItem": "fas fa-newspaper",
+        "protocols.Protocol": "fas fa-network-wired",
+        "ports.Port": "fas fa-ethernet",
+        "main.HistoryEvent": "fas fa-history",
+        "main.HomeHighlight": "fas fa-star",
+        "about.ProjectInfo": "fas fa-info-circle",
+    },
+    "order_with_respect_to": ["accounts", "attacks", "defense", "news", "protocols", "ports", "about", "main"],
+}
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -110,7 +144,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/6.0/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'tk'
 
 TIME_ZONE = 'UTC'
 
