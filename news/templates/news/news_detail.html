@@ -1,15 +1,38 @@
 {% extends "base.html" %}
 
-{% block title %}{{ item.title }} · News{% endblock %}
+{% block title %}{{ item.title }} · Kiberbilermen{% endblock %}
 
 {% block content %}
-  <div class="card">
-    <h1>{{ item.title }}</h1>
-    <p class="muted">{{ item.published_at }} · {{ item.get_category_display }}</p>
-    {% if item.image_url %}
-      <p><a href="{{ item.image_url }}" target="_blank" rel="noreferrer">Image</a></p>
-    {% endif %}
-    <p>{{ item.content|linebreaks }}</p>
-  </div>
-{% endblock %}
+<div class="post-container">
+    <div style="margin-bottom: 32px;">
+        <a href="{% url 'news:list' %}" style="color: var(--text-dim); text-decoration: none; font-size: 0.9rem; display: flex; align-items: center; gap: 8px;">
+            <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+            Täzelikler sanawyna dolan
+        </a>
+    </div>
 
+    <header class="post-header">
+        <div style="margin-bottom: 16px;">
+            <span class="badge badge-registered" style="padding: 6px 16px;">{{ item.get_category_display }}</span>
+        </div>
+        <h1>{{ item.title }}</h1>
+        <div style="color: var(--text-dim); font-size: 1rem;">
+            Aşgabat, {{ item.published_at|date:"d F Y" }} ý.
+        </div>
+    </header>
+
+    {% if item.image_url %}
+        <div class="card glass" style="overflow: hidden; margin-bottom: 48px; max-height: 500px;">
+            <img src="{{ item.image_url }}" alt="{{ item.title }}" style="width: 100%; height: auto; display: block;">
+        </div>
+    {% endif %}
+
+    <div class="post-content">
+        {{ item.content|linebreaks }}
+    </div>
+
+    <footer style="margin-top: 60px; padding-top: 32px; border-top: 1px solid var(--border-main); text-align: center;">
+        <p style="color: var(--text-muted);">Çeşme: Kiberbilermen Research</p>
+    </footer>
+</div>
+{% endblock %}

@@ -1,34 +1,91 @@
 {% extends "base.html" %}
 
-{% block title %}{{ protocol.name }} · Protocols{% endblock %}
+{% block title %}{{ protocol.name }} Protokoly · Kiberbilermen{% endblock %}
 
 {% block content %}
-  <div class="card">
-    <h1>{{ protocol.name }}</h1>
-    <p class="muted">{{ protocol.get_category_display }}</p>
+<div style="margin-bottom: 32px;">
+    <a href="{% url 'protocols:list' %}" style="color: var(--text-dim); text-decoration: none; font-size: 0.9rem; display: flex; align-items: center; gap: 8px;">
+        <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+        Protokollar sanawyna dolan
+    </a>
+</div>
 
-    <h2>Näme üçin döredildi</h2>
-    <p>{{ protocol.purpose }}</p>
+<div class="port-detail-container" style="display: grid; grid-template-columns: 1fr 380px; gap: 32px; align-items: start;">
+    
+    <div class="detail-main">
+        <div class="card glass" style="padding: 40px; margin-bottom: 32px; border-top: 4px solid var(--secondary);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px;">
+                <h1 style="font-size: 3.5rem; color: var(--secondary);">{{ protocol.name }}</h1>
+                <span class="badge badge-{{ protocol.category }}" style="font-size: 0.9rem; padding: 6px 16px;">
+                    {{ protocol.get_category_display }} Gatlagy
+                </span>
+            </div>
+            
+            <section style="margin-bottom: 40px;">
+                <h3 style="color: var(--text-muted); margin-bottom: 16px; font-weight: 500; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 1px;">Esasy Maksady</h3>
+                <p style="font-size: 1.15rem; line-height: 1.7; color: var(--text-main);">{{ protocol.purpose }}</p>
+            </section>
 
-    <h2>Nädip işleýär</h2>
-    <p>{{ protocol.how_it_works }}</p>
+            <section style="margin-bottom: 40px;">
+                <h3 style="color: var(--text-muted); margin-bottom: 16px; font-weight: 500; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 1px;">Nähili işleýär? (Tehniki shemasy)</h3>
+                <div style="background: rgba(0, 187, 255, 0.03); border: 1px solid rgba(0, 187, 255, 0.1); padding: 24px; border-radius: 12px; font-family: 'JetBrains Mono', monospace; font-size: 1rem; color: var(--text-main); line-height: 1.6;">
+                    {{ protocol.how_it_works|linebreaks }}
+                </div>
+            </section>
 
-    {% if protocol.real_world_use %}
-      <h2>Real durmuşda ulanylyşy</h2>
-      <p>{{ protocol.real_world_use }}</p>
-    {% endif %}
+            {% if protocol.real_world_use %}
+                <section>
+                    <h3 style="color: var(--text-muted); margin-bottom: 16px; font-weight: 500; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 1px;">Durmuşda ulanylyşy</h3>
+                    <p style="font-size: 1.1rem; line-height: 1.7;">{{ protocol.real_world_use }}</p>
+                </section>
+            {% endif %}
+        </div>
 
-    {% if protocol.security_notes %}
-      <h2>Howpsuzlyk meselesi</h2>
-      <p>{{ protocol.security_notes }}</p>
-    {% endif %}
+        {% if protocol.security_notes %}
+            <div class="card glass" style="padding: 32px; border-left: 5px solid var(--primary);">
+                <h3 style="color: var(--primary); margin-bottom: 16px; display: flex; align-items: center; gap: 12px; font-size: 1.2rem;">
+                    <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1.2em" width="1.2em" xmlns="http://www.w3.org/2000/svg"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                    Kiber-howpsuzlyk belligi
+                </h3>
+                <p style="font-size: 1.05rem; color: var(--text-main); line-height: 1.6;">
+                    {{ protocol.security_notes }}
+                </p>
+            </div>
+        {% endif %}
+    </div>
 
-    {% if protocol.highlight_dns %}
-      <div class="card" style="background:#fef9c3;border-color:#fde047">
-        <strong>DNS aýratyn</strong>
-        <div class="muted">DNS (Domain Name System) domenleri IP salgylarına öwürýär. Poisoning / spoofing ýaly howplara üns beriň.</div>
-      </div>
-    {% endif %}
-  </div>
+    <div class="detail-sidebar">
+        <div class="card glass" style="padding: 32px; text-align: center; background: linear-gradient(135deg, rgba(0, 187, 255, 0.05) 0%, transparent 100%);">
+            <div style="margin-bottom: 24px;">
+                <div style="width: 80px; height: 80px; background: rgba(0, 187, 255, 0.1); border-radius: 20px; display: flex; align-items: center; justify-content: center; margin: 0 auto 16px;">
+                    <svg stroke="var(--secondary)" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="2.5em" width="2.5em" xmlns="http://www.w3.org/2000/svg"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline></svg>
+                </div>
+                <h4 style="font-size: 1.1rem; margin-bottom: 4px;">{{ protocol.name }}</h4>
+                <p style="color: var(--text-dim); font-size: 0.85rem;">Standart Protokol</p>
+            </div>
+            
+            <div style="border-top: 1px solid var(--border-main); padding-top: 20px;">
+                <div style="margin-bottom: 16px;">
+                    <p style="color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase; margin-bottom: 4px;">ISO/OSI Gatlagy</p>
+                    <p style="font-weight: 600;">{{ protocol.get_category_display }} Layer</p>
+                </div>
+                <div>
+                    <p style="color: var(--text-muted); font-size: 0.75rem; text-transform: uppercase; margin-bottom: 4px;">Statusy</p>
+                    <p style="color: var(--primary); font-weight: 600;">Aktiw / Esasy</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="card glass" style="margin-top: 24px; padding: 24px;">
+            <h4 style="margin-bottom: 16px; font-size: 1rem; font-weight: 600;">Tiz kömek</h4>
+            <ul class="icon-list" style="gap: 16px; font-size: 0.9rem;">
+                <li style="display: flex; align-items: flex-start; gap: 12px;">
+                    <svg style="margin-top: 3px;" stroke="var(--secondary)" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1.1em" width="1.1em" xmlns="http://www.w3.org/2000/svg"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path></svg>
+                    <span>Bu barada RFC resminamalaryny okaň.</span>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+</div>
 {% endblock %}
-

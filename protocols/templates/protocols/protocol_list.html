@@ -1,41 +1,67 @@
 {% extends "base.html" %}
 
-{% block title %}Protocols · Kiberbilermen{% endblock %}
+{% block title %}Internet Protokollary · Kiberbilermen{% endblock %}
 
 {% block content %}
-  <div class="card">
-    <h1>Protokollar</h1>
-    <p class="muted">Protokol — enjamlaryň biri-biri bilen nähili gepleşmelidigini aýdýan düzgünler toplumydyr.</p>
-    <form method="get" class="row">
-      <div>
-        <label>Category</label>
-        <select name="category">
-          <option value="">All</option>
-          {% for value,label in categories.choices %}
-            <option value="{{ value }}" {% if selected_category == value %}selected{% endif %}>{{ label }}</option>
-          {% endfor %}
-        </select>
-      </div>
-      <div>
-        <label>Search</label>
-        <input name="q" value="{{ q }}" placeholder="HTTP, DNS..." />
-      </div>
-      <div>
-        <button type="submit">Filter</button>
-      </div>
+<div class="header-section" style="margin-bottom: 40px;">
+    <h1 style="font-size: 2.5rem; margin-bottom: 8px;">Internet Protokollary</h1>
+    <p style="color: var(--text-muted); font-size: 1.1rem;">Sanly dünýäniň umumy dilini we aragatnaşyk düzgünlerini öwreniň.</p>
+</div>
+
+<!-- Search & Filter Bar -->
+<div class="card glass filter-bar" style="padding: 24px;">
+    <form method="get" style="width: 100%; display: flex; flex-wrap: wrap; gap: 20px; flex-direction: row;">
+        <div class="filter-group" style="flex: 2;">
+            <label for="q">Protokol Gözle</label>
+            <input type="text" name="q" id="q" value="{{ q }}" placeholder="TCP, IP, DNS..." style="width: 100%;">
+        </div>
+        
+        <div class="filter-group">
+            <label for="category">Gatlak (Layer)</label>
+            <select name="category" id="category">
+                <option value="">Ählisi</option>
+                {% for value, label in categories.choices %}
+                    <option value="{{ value }}" {% if selected_category == value %}selected{% endif %}>{{ label }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div style="display: flex; align-items: flex-end;">
+            <button type="submit" class="btn btn-primary" style="height: 46px; padding: 0 32px;">Süzgiç</button>
+        </div>
     </form>
-  </div>
+</div>
 
-  {% if protocols %}
-    {% for p in protocols %}
-      <div class="card">
-        <div><strong>{{ p.name }}</strong> <span class="muted">({{ p.get_category_display }})</span></div>
-        <div class="muted">{{ p.purpose|truncatewords:24 }}</div>
-        <div><a href="{% url 'protocols:detail' p.pk %}">Details</a></div>
-      </div>
-    {% endfor %}
-  {% else %}
-    <div class="card muted">Admin arkaly “Protocol” ýazgylaryny goşuň.</div>
-  {% endif %}
+<!-- Protocol Grid -->
+<div class="port-grid">
+    {% if protocols %}
+        {% for p in protocols %}
+            <div class="card glass port-item-card" {% if p.highlight_dns %}style="border-top: 3px solid var(--secondary);"{% endif %}>
+                <div>
+                    <div class="port-item-header">
+                        <div class="port-number-box" style="background: rgba(0, 187, 255, 0.05);">
+                            <h2 style="font-size: 1.3rem; color: var(--secondary);">{{ p.name }}</h2>
+                        </div>
+                        <span class="badge badge-{{ p.category }}">
+                            {{ p.get_category_display }}
+                        </span>
+                    </div>
+                    
+                    <div class="port-item-content">
+                        <p style="font-size: 0.95rem; line-height: 1.5;">{{ p.purpose|truncatewords:25 }}</p>
+                    </div>
+                </div>
+                
+                <div style="margin-top: 24px;">
+                    <a href="{% url 'protocols:detail' p.pk %}" class="btn btn-outline" style="width: 100%; border-radius: 8px; border-color: rgba(0, 187, 255, 0.3); color: var(--secondary);">Doly maglumat</a>
+                </div>
+            </div>
+        {% endfor %}
+    {% else %}
+        <div class="card glass" style="grid-column: 1 / -1; text-align: center; padding: 60px;">
+            <p style="color: var(--text-dim); font-size: 1.2rem;">Gözlegiňize görä protokollar tapylmady.</p>
+            <a href="{% url 'protocols:list' %}" style="color: var(--secondary); margin-top: 12px; display: inline-block;">Ähli sanawy görkez</a>
+        </div>
+    {% endif %}
+</div>
 {% endblock %}
-

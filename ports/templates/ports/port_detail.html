@@ -1,24 +1,76 @@
 {% extends "base.html" %}
 
-{% block title %}{{ port.number }}/{{ port.transport|upper }} · Ports{% endblock %}
+{% block title %}{{ port.number }} / {{ port.service_name }} · Kiberbilermen{% endblock %}
 
 {% block content %}
-  <div class="card">
-    <h1>{{ port.number }}/{{ port.transport|upper }} — {{ port.service_name }}</h1>
-    <p class="muted">{{ port.get_category_display }}</p>
+<div style="margin-bottom: 32px;">
+    <a href="{% url 'ports:list' %}" style="color: var(--text-dim); text-decoration: none; font-size: 0.9rem; display: flex; align-items: center; gap: 8px;">
+        <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+        Portlar sanawyna dolan
+    </a>
+</div>
 
-    <h2>Näme edýär</h2>
-    <p>{{ port.what_it_does }}</p>
+<div class="port-detail-container" style="display: grid; grid-template-columns: 1fr 350px; gap: 32px; align-items: start;">
+    
+    <div class="detail-main">
+        <div class="card glass" style="padding: 40px; margin-bottom: 32px;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
+                <h1 style="font-size: 3rem; color: var(--primary);">{{ port.service_name }}</h1>
+                <span class="badge badge-{{ port.category }}" style="font-size: 0.9rem; padding: 6px 16px;">
+                    {{ port.get_category_display }}
+                </span>
+            </div>
+            
+            <h3 style="color: var(--text-muted); margin-bottom: 12px; font-weight: 500;">Näme edýär?</h3>
+            <p style="font-size: 1.1rem; line-height: 1.7; margin-bottom: 32px;">{{ port.what_it_does }}</p>
 
-    {% if port.where_used %}
-      <h2>Nirede ulanylýar</h2>
-      <p>{{ port.where_used }}</p>
-    {% endif %}
+            {% if port.where_used %}
+                <h3 style="color: var(--text-muted); margin-bottom: 12px; font-weight: 500;">Nirede ulanylýar?</h3>
+                <p style="font-size: 1.1rem; line-height: 1.7; margin-bottom: 32px;">{{ port.where_used }}</p>
+            {% endif %}
+        </div>
 
-    {% if port.security_risks %}
-      <h2>Howpsuzlyk töwekgelçiligi</h2>
-      <p>{{ port.security_risks }}</p>
-    {% endif %}
-  </div>
+        <div class="card glass" style="padding: 32px; border-left: 4px solid var(--warning);">
+            <h3 style="color: var(--warning); margin-bottom: 16px; display: flex; align-items: center; gap: 12px;">
+                <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1.2em" width="1.2em" xmlns="http://www.w3.org/2000/svg"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                Howpsuzlyk töwekgelçilikleri
+            </h3>
+            <p style="font-size: 1rem; color: var(--text-main);">
+                {% if port.security_risks %}
+                    {{ port.security_risks }}
+                {% else %}
+                    Bu port üçin ýörite howpsuzlyk töwekgelçiligi hasaba alynmady, ýöne elmydama şifrlenen protokollary ulanmak maslahat berilýär.
+                {% endif %}
+            </p>
+        </div>
+    </div>
+
+    <div class="detail-sidebar">
+        <div class="card glass" style="padding: 24px; text-align: center;">
+            <div class="port-number-box" style="display: inline-block; margin-bottom: 16px; padding: 16px 32px;">
+                <h2 style="font-size: 3.5rem;">{{ port.number }}</h2>
+                <span style="font-size: 1rem;">{{ port.transport|upper }}</span>
+            </div>
+            <div style="border-top: 1px solid var(--border-main); padding-top: 16px; margin-top: 16px;">
+                <p style="color: var(--text-dim); font-size: 0.85rem; text-transform: uppercase;">Açyk port görnüşi</p>
+                <p style="font-weight: 600; font-size: 1.1rem; margin-top: 4px;">{{ port.get_transport_display }}</p>
+            </div>
+        </div>
+
+        <div class="card glass" style="margin-top: 24px; padding: 24px;">
+            <h4 style="margin-bottom: 12px; font-size: 1rem;">Goşmaça maglumat</h4>
+            <ul class="icon-list" style="gap: 16px;">
+                <li>
+                    <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>
+                    IANA status: Hasaba alnan
+                </li>
+                <li>
+                    <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                    Gorag: Firewall gerek
+                </li>
+            </ul>
+        </div>
+    </div>
+
+</div>
 {% endblock %}
-

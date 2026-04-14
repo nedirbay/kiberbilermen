@@ -1,17 +1,44 @@
 {% extends "base.html" %}
 
-{% block title %}{{ tool.name }} · Defense{% endblock %}
+{% block title %}Gorag Guralary · {{ tool.name }} · Kiberbilermen{% endblock %}
 
 {% block content %}
-  <div class="card">
-    <h1>{{ tool.name }}</h1>
-    <p class="muted">{{ tool.get_category_display }}</p>
+<div class="post-container">
+    <div style="margin-bottom: 32px;">
+        <a href="{% url 'defense:list' %}" style="color: var(--text-dim); text-decoration: none; font-size: 0.9rem; display: flex; align-items: center; gap: 8px;">
+            <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+            Gorag gurallaryna dolan
+        </a>
+    </div>
 
-    <h2>Näme üçin gerek</h2>
-    <p>{{ tool.why_needed }}</p>
+    <header class="post-header">
+        <div style="margin-bottom: 16px;">
+            <span class="badge badge-registered" style="padding: 6px 16px;">{{ tool.get_category_display }}</span>
+        </div>
+        <h1 style="color: var(--secondary);">{{ tool.name }}</h1>
+        <p style="color: var(--text-muted); font-size: 1.2rem;">Maglumat goragynyň iň täsirli gurallarynyň biri.</p>
+    </header>
 
-    <h2>Nähili işleýär</h2>
-    <p>{{ tool.how_it_works }}</p>
-  </div>
+    <div class="post-content">
+        <section>
+            <h2>Näme üçin gerek?</h2>
+            <p>{{ tool.why_needed }}</p>
+        </section>
+
+        <section>
+            <h2>Nähili işleýär?</h2>
+            <div style="background: rgba(0, 187, 255, 0.05); border: 1px solid rgba(0, 187, 255, 0.1); padding: 32px; border-radius: 12px; color: var(--text-main); line-height: 1.8;">
+                {{ tool.how_it_works|linebreaks }}
+            </div>
+        </section>
+
+        <div class="card glass" style="margin-top: 60px; padding: 32px; text-align: center; border-top: 3px solid var(--secondary);">
+            <h4 style="margin-bottom: 16px;">Bu gural barada has giňişleýin öwrenmek isleýärsiňizmi?</h4>
+            <div style="display: flex; justify-content: center; gap: 16px;">
+                <button class="btn btn-outline">Resminamalar</button>
+                <button class="btn btn-primary">Gurnama gollanmasy</button>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}
-

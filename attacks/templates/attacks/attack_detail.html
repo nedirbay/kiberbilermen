@@ -1,32 +1,62 @@
 {% extends "base.html" %}
 
-{% block title %}{{ attack.name }} · Attacks{% endblock %}
+{% block title %}{{ attack.name }} · Kiberbilermen{% endblock %}
 
 {% block content %}
-  <div class="card">
-    <h1>{{ attack.name }}</h1>
-    <p class="muted">{{ attack.get_attack_type_display }}</p>
+<div class="post-container">
+    <div style="margin-bottom: 32px;">
+        <a href="{% url 'attacks:list' %}" style="color: var(--text-dim); text-decoration: none; font-size: 0.9rem; display: flex; align-items: center; gap: 8px;">
+            <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 19 5 12 12 5"></polyline></svg>
+            Hüjümler sanawyna dolan
+        </a>
+    </div>
 
-    <h2>Näme edýär</h2>
-    <p>{{ attack.what_it_does }}</p>
+    <header class="post-header">
+        <div style="margin-bottom: 16px;">
+            <span class="badge badge-dynamic_private" style="padding: 6px 16px;">{{ attack.get_attack_type_display }}</span>
+        </div>
+        <h1 style="color: var(--primary);">{{ attack.name }}</h1>
+        <p style="color: var(--text-muted); font-size: 1.2rem;">Hüjümiň weýran ediji güýji we işleýiş prinsipi.</p>
+    </header>
 
-    <h2>Nädip işleýär</h2>
-    <p>{{ attack.how_it_works }}</p>
+    <div class="post-content">
+        <section>
+            <h2>Näme edýär?</h2>
+            <p>{{ attack.what_it_does }}</p>
+        </section>
 
-    {% if attack.goal %}
-      <h2>Maksady</h2>
-      <p>{{ attack.goal }}</p>
-    {% endif %}
+        <section>
+            <h2>Nähili işleýär?</h2>
+            <div style="background: rgba(255, 75, 75, 0.05); border: 1px solid rgba(255, 75, 75, 0.1); padding: 24px; border-radius: 12px; font-family: 'JetBrains Mono', monospace; font-size: 1rem; color: var(--text-main); line-height: 1.6;">
+                {{ attack.how_it_works|linebreaks }}
+            </div>
+        </section>
 
-    {% if attack.example %}
-      <h2>Mysal</h2>
-      <p>{{ attack.example }}</p>
-    {% endif %}
+        {% if attack.goal %}
+            <section>
+                <h2>Hüjümçiniň maksady</h2>
+                <p>{{ attack.goal }}</p>
+            </section>
+        {% endif %}
 
-    {% if attack.prevention %}
-      <h2>Nädip öňüni almaly</h2>
-      <p>{{ attack.prevention }}</p>
-    {% endif %}
-  </div>
+        {% if attack.example %}
+            <section>
+                <h2>Mysal</h2>
+                <div class="card glass" style="padding: 24px; border-left: 4px solid var(--secondary);">
+                    {{ attack.example|linebreaks }}
+                </div>
+            </section>
+        {% endif %}
+
+        <section style="margin-top: 60px;">
+            <div class="card glass" style="padding: 32px; border: 1px solid var(--primary); background: rgba(0, 255, 136, 0.02);">
+                <h3 style="color: var(--primary); margin-bottom: 16px; display: flex; align-items: center; gap: 12px;">
+                    <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1.2em" width="1.2em" xmlns="http://www.w3.org/2000/svg"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                    Öňüni almak we Goranmak
+                </h3>
+                <p>{{ attack.prevention|default:"Bu hüjümden goranmak üçin ulgamlaryňyzy elmydama täzeläň we güýçli parollar ulanyň." }}</p>
+            </div>
+        </section>
+    </div>
+</div>
 {% endblock %}
-

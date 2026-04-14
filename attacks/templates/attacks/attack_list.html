@@ -1,41 +1,110 @@
 {% extends "base.html" %}
 
-{% block title %}Attacks · Kiberbilermen{% endblock %}
+{% block title %}Kiber Hüjümler Dashboard · Kiberbilermen{% endblock %}
 
 {% block content %}
-  <div class="card">
-    <h1>Kiber hüjümler</h1>
-    <p class="muted">Teoriýa + real mysallar + öňüni almak usullary.</p>
-    <form method="get" class="row">
-      <div>
-        <label>Type</label>
-        <select name="type">
-          <option value="">All</option>
-          {% for value,label in types.choices %}
-            <option value="{{ value }}" {% if selected_type == value %}selected{% endif %}>{{ label }}</option>
-          {% endfor %}
-        </select>
-      </div>
-      <div>
-        <label>Search</label>
-        <input name="q" value="{{ q }}" placeholder="Phishing..." />
-      </div>
-      <div>
-        <button type="submit">Filter</button>
-      </div>
-    </form>
-  </div>
+<div class="attacks-page">
+    <!-- Top Header & Search Bar -->
+    <div style="margin-bottom: 48px;">
+        <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 24px;">
+            <div>
+                <h1 style="font-size: 2.5rem; margin-bottom: 8px;">Kiber Hüjümler Katalogyny</h1>
+                <p style="color: var(--text-muted); font-size: 1.1rem;">Dünýädäki iň howply sanly hüjüm görnüşlerini derňäň.</p>
+            </div>
+            
+            <!-- Top Search Bar -->
+            <form method="get" style="width: 400px; position: relative;">
+                <input type="text" name="q" value="{{ q }}" placeholder="Hüjüm görnüşini gözle..." style="width: 100%; padding-right: 50px;">
+                {% if selected_type %}
+                    <input type="hidden" name="type" value="{{ selected_type }}">
+                {% endif %}
+                <button type="submit" style="position: absolute; right: 5px; top: 50%; transform: translateY(-50%); background: none; border: none; color: var(--primary); cursor: pointer; padding: 10px;">
+                    <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1.2em" width="1.2em" xmlns="http://www.w3.org/2000/svg"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                </button>
+            </form>
+        </div>
+    </div>
 
-  {% if attacks %}
-    {% for a in attacks %}
-      <div class="card">
-        <div><strong>{{ a.name }}</strong> <span class="muted">({{ a.get_attack_type_display }})</span></div>
-        <div class="muted">{{ a.what_it_does|truncatewords:24 }}</div>
-        <div><a href="{% url 'attacks:detail' a.pk %}">Details</a></div>
-      </div>
-    {% endfor %}
-  {% else %}
-    <div class="card muted">Admin arkaly “Attack” ýazgylaryny goşuň.</div>
-  {% endif %}
+    <!-- Main Layout: Sidebar + Grid -->
+    <div class="layout-sidebar" style="padding: 0 60px 80px;"> <!-- Side padding only for the main content area -->
+        <!-- Sidebar Panel -->
+        <aside class="sidebar-panel card glass" style="padding: 24px;">
+            <span class="sidebar-title">Kategoriýalar</span>
+            <nav class="filter-list">
+                <a href="?{% if q %}q={{ q }}&{% endif %}" class="filter-link {% if not selected_type %}active{% endif %}">
+                    Ähli Görnüşler
+                </a>
+                {% for value, label in types.choices %}
+                    <a href="?type={{ value }}{% if q %}&q={{ q }}{% endif %}" class="filter-link {% if selected_type == value %}active{% endif %}">
+                        {{ label }}
+                        <span style="font-size: 0.7rem; opacity: 0.5;">⚡</span>
+                    </a>
+                {% endfor %}
+            </nav>
+
+            <div style="margin-top: 40px; padding-top: 24px; border-top: 1px solid var(--border-main);">
+                <span class="sidebar-title">Kömökçi çeşmeler</span>
+                <p style="font-size: 0.85rem; color: var(--text-dim); line-height: 1.5;">Hüjümler barada has giňişleýin maglumat üçin jikme-jik sahypalary okaň.</p>
+            </div>
+        </aside>
+
+        <!-- Main Content Area -->
+        <main>
+            <div class="blog-grid" style="grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));">
+                {% if page_obj %}
+                    {% for attack in page_obj %}
+                        <article class="card glass blog-card">
+                            <div class="blog-thumb">
+                                <div class="blog-thumb-placeholder" style="background: linear-gradient(45deg, #1a1a1a, var(--primary-glow));">
+                                    <svg stroke="var(--primary)" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="4em" width="4em" xmlns="http://www.w3.org/2000/svg"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path><line x1="12" y1="9" x2="12" y2="13"></line><line x1="12" y1="17" x2="12.01" y2="17"></line></svg>
+                                </div>
+                            </div>
+                            <div class="blog-card-content">
+                                <div class="blog-meta">
+                                    <span class="badge badge-dynamic_private">{{ attack.get_attack_type_display }}</span>
+                                </div>
+                                <h3 style="margin-bottom: 12px;">{{ attack.name }}</h3>
+                                <p style="font-size: 0.95rem; margin-bottom: 20px;">{{ attack.what_it_does|truncatewords:25 }}</p>
+                                <div style="margin-top: auto;">
+                                    <a href="{% url 'attacks:detail' attack.pk %}" class="btn btn-outline" style="width: 100%; border-color: var(--primary); color: var(--primary);">Doly öwren</a>
+                                </div>
+                            </div>
+                        </article>
+                    {% endfor %}
+                {% else %}
+                    <div class="card glass" style="grid-column: 1 / -1; padding: 80px; text-align: center;">
+                        <svg stroke="var(--text-dim)" fill="none" stroke-width="1.5" viewBox="0 0 24 24" height="4em" width="4em" xmlns="http://www.w3.org/2000/svg" style="margin-bottom: 20px;"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                        <p style="color: var(--text-dim); font-size: 1.2rem;">Gözlegiňize görä hiç hili hüjüm tapylmady.</p>
+                        <a href="{% url 'attacks:list' %}" style="color: var(--primary); margin-top: 12px; display: inline-block;">Ähli sanawy görkez</a>
+                    </div>
+                {% endif %}
+            </div>
+
+            <!-- Pagination Container -->
+            {% if page_obj.has_other_pages %}
+                <nav class="pagination">
+                    <div class="step-links">
+                        {% if page_obj.has_previous %}
+                            <a href="?page=1{% if q %}&q={{ q }}{% endif %}{% if selected_type %}&type={{ selected_type }}{% endif %}" class="page-link">&laquo;</a>
+                            <a href="?page={{ page_obj.previous_page_number }}{% if q %}&q={{ q }}{% endif %}{% if selected_type %}&type={{ selected_type }}{% endif %}" class="page-link">‹</a>
+                        {% endif %}
+
+                        {% for num in page_obj.paginator.page_range %}
+                            {% if page_obj.number == num %}
+                                <span class="page-link current">{{ num }}</span>
+                            {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+                                <a href="?page={{ num }}{% if q %}&q={{ q }}{% endif %}{% if selected_type %}&type={{ selected_type }}{% endif %}" class="page-link">{{ num }}</a>
+                            {% endif %}
+                        {% endfor %}
+
+                        {% if page_obj.has_next %}
+                            <a href="?page={{ page_obj.next_page_number }}{% if q %}&q={{ q }}{% endif %}{% if selected_type %}&type={{ selected_type }}{% endif %}" class="page-link">›</a>
+                            <a href="?page={{ page_obj.paginator.num_pages }}{% if q %}&q={{ q }}{% endif %}{% if selected_type %}&type={{ selected_type }}{% endif %}" class="page-link">&raquo;</a>
+                        {% endif %}
+                    </div>
+                </nav>
+            {% endif %}
+        </main>
+    </div>
+</div>
 {% endblock %}
-

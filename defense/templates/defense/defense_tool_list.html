@@ -1,41 +1,56 @@
 {% extends "base.html" %}
 
-{% block title %}Defense · Kiberbilermen{% endblock %}
+{% block title %}Kiber Gorag Programmalary · Kiberbilermen{% endblock %}
 
 {% block content %}
-  <div class="card">
-    <h1>Kiber gorag</h1>
-    <p class="muted">Antivirus, firewall, IDS/IPS, encryption ýaly gurallar.</p>
-    <form method="get" class="row">
-      <div>
-        <label>Category</label>
-        <select name="category">
-          <option value="">All</option>
-          {% for value,label in categories.choices %}
-            <option value="{{ value }}" {% if selected_category == value %}selected{% endif %}>{{ label }}</option>
-          {% endfor %}
-        </select>
-      </div>
-      <div>
-        <label>Search</label>
-        <input name="q" value="{{ q }}" placeholder="Firewall..." />
-      </div>
-      <div>
-        <button type="submit">Filter</button>
-      </div>
+<div class="header-section" style="margin-bottom: 48px;">
+    <h1>Kiber Gorag Programmalary</h1>
+    <p style="color: var(--text-muted); font-size: 1.1rem;">Maglumatlaryňyzy goramak üçin iň netijeli guralary we programmalary öwreniň.</p>
+</div>
+
+<!-- Search & Filter Bar -->
+<div class="card glass filter-bar" style="padding: 20px; margin-bottom: 40px;">
+    <form method="get" style="width: 100%; display: flex; flex-wrap: wrap; gap: 16px;">
+        <div class="filter-group" style="flex: 2;">
+            <input type="text" name="q" id="q" value="{{ q }}" placeholder="Programma adyny gözle..." style="width: 100%;">
+        </div>
+        <div class="filter-group">
+            <select name="category" id="category">
+                <option value="">Ähli Kategoriýalar</option>
+                {% for value, label in categories.choices %}
+                    <option value="{{ value }}" {% if selected_category == value %}selected{% endif %}>{{ label }}</option>
+                {% endfor %}
+            </select>
+        </div>
+        <button type="submit" class="btn btn-primary" style="padding: 0 24px;">Gözle</button>
     </form>
-  </div>
+</div>
 
-  {% if tools %}
-    {% for t in tools %}
-      <div class="card">
-        <div><strong>{{ t.name }}</strong> <span class="muted">({{ t.get_category_display }})</span></div>
-        <div class="muted">{{ t.why_needed|truncatewords:24 }}</div>
-        <div><a href="{% url 'defense:detail' t.pk %}">Details</a></div>
-      </div>
-    {% endfor %}
-  {% else %}
-    <div class="card muted">Admin arkaly “DefenseTool” ýazgylaryny goşuň.</div>
-  {% endif %}
+<div class="blog-grid">
+    {% if tools %}
+        {% for tool in tools %}
+            <article class="card glass blog-card">
+                <div class="blog-thumb">
+                    <div class="blog-thumb-placeholder" style="background: linear-gradient(135deg, #1a1a1a, rgba(0, 187, 255, 0.2));">
+                        <svg stroke="var(--secondary)" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="4em" width="4em" xmlns="http://www.w3.org/2000/svg"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                    </div>
+                </div>
+                <div class="blog-card-content">
+                    <div class="blog-meta">
+                        <span class="badge badge-registered">{{ tool.get_category_display }}</span>
+                    </div>
+                    <h3>{{ tool.name }}</h3>
+                    <p>{{ tool.why_needed|truncatewords:20 }}</p>
+                    <div style="margin-top: 20px;">
+                        <a href="{% url 'defense:detail' tool.pk %}" class="btn btn-outline" style="width: 100%; border-color: var(--secondary); color: var(--secondary);">Doly öwren</a>
+                    </div>
+                </div>
+            </article>
+        {% endfor %}
+    {% else %}
+        <div class="card glass" style="grid-column: 1 / -1; padding: 60px; text-align: center;">
+            <p style="color: var(--text-dim);">Programma tapylmady.</p>
+        </div>
+    {% endif %}
+</div>
 {% endblock %}
-
