@@ -1,53 +1,159 @@
 {% extends "base.html" %}
+{% load static %}
 
-{% block title %}Home · Kiberbilermen{% endblock %}
+{% block title %}Baş Sahypa · Kiberbilermen{% endblock %}
 
 {% block content %}
-  <div class="card">
-    <h1>Kiber howpsuzlyk</h1>
-    <p class="muted">“Kiber howpsuzlyk – diňe tehnologiýa däl, ol gorag medeniýetidir”.</p>
-    <p>
-      Bu sahypa portlar, protokollar, kiber hüjümler we gorag usullary boýunça ýönekeý we amaly düşündiriş berýär.
-    </p>
-  </div>
-
-  <div class="grid">
-    <div class="card">
-      <h2>Gysgaça</h2>
-      <p>Kiber howpsuzlyk – maglumatlary, ulgamlary we ulanyjylary howplardan goramak.</p>
+<!-- Hero Section -->
+<section class="hero shadow-lg">
+    <div class="hero-content">
+        <h1>Kiber Dünyäsiniň Goragy: <br>Biziň Esasy Maksadymyz</h1>
+        <p>Maglumatlaryňyzy Goramagy Öwreniň we Amala Aşyryň</p>
+        <a href="{% url 'ports:list' %}" class="btn btn-primary" style="padding: 14px 28px; font-size: 1.1rem; border-radius: 12px; text-transform: uppercase; letter-spacing: 1px;">
+            TIZ BAŞLAMAK
+        </a>
     </div>
-    <div class="card">
-      <h2>Häzirki ýagdaý</h2>
-      <p>Dünýäde kiber hüjümleri köpelýär: döwlet, bank we şahsy maglumatlar üçin risk ýokary.</p>
+    <div class="carousel-indicators">
+        <div class="dot active"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
+        <div class="dot"></div>
     </div>
-  </div>
+</section>
 
-  <div class="card">
-    <h2>Taryh (gysga)</h2>
-    {% if history_events %}
-      <ul>
-        {% for e in history_events %}
-          <li>
-            <strong>{{ e.title }}</strong>
-            <span class="muted">({{ e.year_start }}{% if e.year_end %}–{{ e.year_end }}{% endif %})</span>
-            <div class="muted">{{ e.description }}</div>
-          </li>
-        {% endfor %}
-      </ul>
-    {% else %}
-      <p class="muted">Admin arkaly “HistoryEvent” goşup bilersiňiz.</p>
-    {% endif %}
-  </div>
-
-  {% if highlights %}
-    <div class="card">
-      <h2>Bellikler</h2>
-      <ul>
-        {% for h in highlights %}
-          <li><strong>{{ h.title }}</strong>: {{ h.body }}</li>
-        {% endfor %}
-      </ul>
+<!-- Features Grid -->
+<div class="dashboard-grid">
+    <!-- Card 1: Ports -->
+    <div class="card dashboard-card glass">
+        <div>
+            <h3>PORTLAR</h3>
+            <p>TCP/UDP Portlaryň Sanawy</p>
+            <div class="port-tags">
+                <span class="port-tag">21 - FTP</span>
+                <span class="port-tag">22 - SSH</span>
+                <span class="port-tag">80 - HTTP</span>
+                <span class="port-tag">443 - HTTPS</span>
+            </div>
+        </div>
+        <a href="{% url 'ports:list' %}" class="btn btn-outline" style="width: 100%;">ÄHLI PORTLARY GÖR</a>
     </div>
-  {% endif %}
+
+    <!-- Card 2: Protocols -->
+    <div class="card dashboard-card glass">
+        <div>
+            <h3>INTERNET PROTOKOLLAR</h3>
+            <p>Tor gatlaklary we protokollar</p>
+            <ul class="icon-list" style="margin-top: 10px;">
+                <li>
+                    <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="m8 3 4 8 5-5 5 15H2L8 3z"></path></svg>
+                    HTTP / HTTPS
+                </li>
+                <li>
+                    <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="10"></circle><path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path><path d="M2 12h20"></path></svg>
+                    DNS Sistema
+                </li>
+                <li>
+                    <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                    TCP / IP Modeli
+                </li>
+            </ul>
+        </div>
+        <a href="{% url 'protocols:list' %}" class="btn btn-outline" style="width: 100%;">PROTOKOLLARY GÖR</a>
+    </div>
+
+    <!-- Card 3: Attacks -->
+    <div class="card dashboard-card glass">
+        <div>
+            <h3>KIBER HÜJÜMLER</h3>
+            <p>Hüjüm görnüşleri we shemalary</p>
+            <div class="chart-container">
+                <div class="chart-bar" style="height: 40%;" title="Phishing"></div>
+                <div class="chart-bar" style="height: 70%;" title="Malware"></div>
+                <div class="chart-bar" style="height: 50%;" title="Ransomware"></div>
+                <div class="chart-bar" style="height: 85%;" title="DDoS"></div>
+                <div class="chart-bar" style="height: 30%;" title="SQLi"></div>
+                <div class="chart-bar" style="height: 60%;" title="MITM"></div>
+            </div>
+        </div>
+        <a href="{% url 'attacks:list' %}" class="btn btn-outline" style="width: 100%;">HÜJÜM GÖRNÜŞLERI</a>
+    </div>
+
+    <!-- Card 4: Defense -->
+    <div class="card dashboard-card glass">
+        <div>
+            <h3>KIBER GORAG</h3>
+            <p>Gorag Enjamlary we Ulgamlary</p>
+            <ul class="icon-list">
+                <li>
+                    <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                    Firewall
+                </li>
+                <li>
+                    <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M20 13c0 5-3.5 7.5-7.66 8.95a1 1 0 0 1-.67-.01C7.5 20.5 4 18 4 13V6a1 1 0 0 1 1-1c2 0 4.5-1.2 6.24-2.72a1.17 1.17 0 0 1 1.52 0C14.5 3.8 17 5 19 5a1 1 0 0 1 1 1z"></path></svg>
+                    Antivirus
+                </li>
+                <li>
+                    <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M12 1s-1 1-1 5c0 3 2 4 2 4s2-1 2-4c0-4-1-5-1-5z"></path><path d="M17 12c-2.5 0-5 2-5 5s2.5 5 5 5 5-2 5-5-2.5-5-5-5z"></path></svg>
+                    Encryption
+                </li>
+            </ul>
+        </div>
+        <a href="{% url 'defense:list' %}" class="btn btn-outline" style="width: 100%;">PROGRAMMALARY GÖR</a>
+    </div>
+
+    <!-- Card 5: News -->
+    <div class="card dashboard-card glass">
+        <div>
+            <h3>TÄZELIKLER</h3>
+            <div class="news-quick-list">
+                <div class="news-snippet">
+                    <div class="news-img-placeholder" style="background: url('{% static 'images/hero_banner.png' %}') center/cover;"></div>
+                    <div class="news-details">
+                        <h4>Täze 'Zero-Day' gowşaklygy tapyldy</h4>
+                        <span>(24/10/2023)</span>
+                    </div>
+                </div>
+                <div class="news-snippet">
+                    <div class="news-img-placeholder" style="background: linear-gradient(45deg, var(--secondary), var(--primary)); opacity: 0.5;"></div>
+                    <div class="news-details">
+                        <h4>Dünýäde kiber goraga maýa goýumlary artdy</h4>
+                        <span>(23/10/2023)</span>
+                    </div>
+                </div>
+                <div class="news-snippet">
+                    <div class="news-img-placeholder" style="background: var(--bg-deep);"></div>
+                    <div class="news-details">
+                        <h4>AI howpsuzlyk meseleleri...</h4>
+                        <span>(22/10/2023)</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <a href="{% url 'news:list' %}" class="btn btn-outline" style="width: 100%;">ÄHLI TÄZELIKLERI GÖR</a>
+    </div>
+
+    <!-- Card 6: About -->
+    <div class="card dashboard-card glass">
+        <div>
+            <h3>BIZ BARADA</h3>
+            <p>Proýektiň maksady we geljegi</p>
+            <ul class="icon-list" style="margin-top: 10px;">
+                <li>
+                    <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                    Maksadymyz
+                </li>
+                <li>
+                    <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                    Toparymyz
+                </li>
+                <li>
+                    <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                    Meýilnamalar
+                </li>
+            </ul>
+        </div>
+        <a href="{% url 'about:about' %}" class="btn btn-outline" style="width: 100%;">BIZ BARADA GÖR</a>
+    </div>
+</div>
 {% endblock %}
-

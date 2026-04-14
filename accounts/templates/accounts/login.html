@@ -1,15 +1,40 @@
 {% extends "base.html" %}
 
-{% block title %}Login · Kiberbilermen{% endblock %}
+{% block title %}Giriş · Kiberbilermen{% endblock %}
 
 {% block content %}
-  <div class="card">
-    <h1>Login</h1>
-    <form method="post">
-      {% csrf_token %}
-      {{ form.as_p }}
-      <button type="submit">Login</button>
-    </form>
-  </div>
-{% endblock %}
+<div class="auth-container">
+    <div class="card auth-card glass">
+        <div class="auth-header">
+            <h1>Hoş Geldiňiz!</h1>
+            <p>Siz eýýäm agzamy? Onda giriň.</p>
+        </div>
 
+        <form method="post">
+            {% csrf_token %}
+            
+            {% if form.errors %}
+                <div class="alert glass" style="background: rgba(255, 193, 7, 0.1); border-color: var(--warning); color: var(--warning);">
+                    Giriş maglumatlaryňyz nädogry.
+                </div>
+            {% endif %}
+
+            <div class="form-group">
+                <label for="id_username">Ulanyjy ady</label>
+                <input type="text" name="username" id="id_username" placeholder="cyber_expert" required autofocus>
+            </div>
+
+            <div class="form-group">
+                <label for="id_password">Parol</label>
+                <input type="password" name="password" id="id_password" placeholder="••••••••" required>
+            </div>
+
+            <button type="submit" class="btn btn-primary" style="margin-top: 12px; width: 100%;">Giriş Et</button>
+        </form>
+
+        <div style="margin-top: 24px; text-align: center; font-size: 0.9rem; color: var(--text-muted);">
+            Hasabyňyz ýokmy? <a href="{% url 'accounts:register' %}" style="color: var(--primary); text-decoration: none; font-weight: 600;">Agza boluň</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

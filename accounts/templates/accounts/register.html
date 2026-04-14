@@ -1,15 +1,46 @@
 {% extends "base.html" %}
 
-{% block title %}Register · Kiberbilermen{% endblock %}
+{% block title %}Agza Bol · Kiberbilermen{% endblock %}
 
 {% block content %}
-  <div class="card">
-    <h1>Register</h1>
-    <form method="post">
-      {% csrf_token %}
-      {{ form.as_p }}
-      <button type="submit">Create account</button>
-    </form>
-  </div>
-{% endblock %}
+<div class="auth-container">
+    <div class="card auth-card glass">
+        <div class="auth-header">
+            <h1>Täze Hasap</h1>
+            <p>Kiber dünýäsine goşulyň we öwreniň.</p>
+        </div>
 
+        <form method="post">
+            {% csrf_token %}
+            
+            {% if form.errors %}
+                <div class="alert glass" style="background: rgba(255, 193, 7, 0.1); border-color: var(--warning); color: var(--warning);">
+                    Giriş maglumatlaryňyz nädogry.
+                </div>
+            {% endif %}
+
+            {% for field in form %}
+                <div class="form-group" style="margin-bottom: 20px;">
+                    <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                    <input type="{{ field.field.widget.input_type|default:'text' }}" 
+                           name="{{ field.name }}" 
+                           id="{{ field.id_for_label }}" 
+                           placeholder="{{ field.label }}" 
+                           required>
+                    {% if field.errors %}
+                        {% for error in field.errors %}
+                            <div style="font-size: 0.8rem; color: var(--warning); margin-top: 4px;">⚠️ {{ error }}</div>
+                        {% endfor %}
+                    {% endif %}
+                </div>
+            {% endfor %}
+
+            <button type="submit" class="btn btn-primary" style="margin-top: 12px; width: 100%;">Hasap Döret</button>
+        </form>
+
+        <div style="margin-top: 24px; text-align: center; font-size: 0.9rem; color: var(--text-muted);">
+            Eýýäm hasabyňyz barmy? <a href="{% url 'accounts:login' %}" style="color: var(--primary); text-decoration: none; font-weight: 600;">Giriş et</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

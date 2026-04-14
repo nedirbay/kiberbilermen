@@ -1,56 +1,72 @@
+{% load static %}
 <!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>{% block title %}Kiberbilermen{% endblock %}</title>
-    <style>
-      body { font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; margin: 0; }
-      header { background: #0b1220; color: #fff; padding: 14px 18px; }
-      header a { color: #fff; text-decoration: none; margin-right: 12px; opacity: 0.9; }
-      header a:hover { opacity: 1; text-decoration: underline; }
-      main { padding: 18px; max-width: 980px; margin: 0 auto; }
-      .card { border: 1px solid #e5e7eb; border-radius: 12px; padding: 14px; margin: 12px 0; }
-      .muted { color: #6b7280; }
-      .grid { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); }
-      input, select, textarea { padding: 8px; border: 1px solid #d1d5db; border-radius: 8px; }
-      button { padding: 8px 12px; border: 0; border-radius: 8px; background: #2563eb; color: #fff; cursor: pointer; }
-      button:hover { background: #1d4ed8; }
-      .row { display: flex; gap: 10px; flex-wrap: wrap; align-items: end; }
-      .row > div { display: flex; flex-direction: column; gap: 6px; }
-    </style>
+    
+    <!-- Design System -->
+    <link rel="stylesheet" href="{% static 'css/index.css' %}">
+    
+    <!-- Meta Tags for SEO -->
+    <meta name="description" content="Kiberbilermen — kiber howpsuzlygyň esaslaryny öwrenmek we düşündirmek üçin döredilen okuw platformasydyr.">
+    
+    {% block extra_head %}{% endblock %}
   </head>
   <body>
-    <header>
-      <nav>
-        <a href="{% url 'main:home' %}">Home</a>
-        <a href="{% url 'ports:list' %}">Ports</a>
-        <a href="{% url 'protocols:list' %}">Protocols</a>
-        <a href="{% url 'attacks:list' %}">Attacks</a>
-        <a href="{% url 'defense:list' %}">Defense</a>
-        <a href="{% url 'news:list' %}">News</a>
-        <a href="{% url 'about:about' %}">About</a>
-        <span style="float:right">
-          {% if user.is_authenticated %}
-            <a href="{% url 'accounts:profile' %}">My account</a>
-            <a href="{% url 'accounts:logout' %}">Logout</a>
-          {% else %}
-            <a href="{% url 'accounts:login' %}">Login</a>
-            <a href="{% url 'accounts:register' %}">Register</a>
-          {% endif %}
-        </span>
-      </nav>
+    <header class="glass sticky">
+      <div class="container py-0">
+        <nav>
+          <a href="{% url 'main:home' %}" class="logo">
+            <svg stroke="currentColor" fill="none" stroke-width="2" viewBox="0 0 24 24" stroke-linecap="round" stroke-linejoin="round" height="1em" width="1em" xmlns="http://www.w3.org/2000/svg"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path><path d="M12 8v4"></path><path d="M12 16h.01"></path></svg>
+            KIBER<span>BILERMEN</span>
+          </a>
+          
+          <div class="nav-links">
+            <a href="{% url 'main:home' %}" class="{% if request.resolver_match.view_name == 'main:home' %}active{% endif %}">BAŞ SAHYPA</a>
+            <a href="{% url 'ports:list' %}" class="{% if request.resolver_match.app_name == 'ports' %}active{% endif %}">PORTLAR</a>
+            <a href="{% url 'protocols:list' %}" class="{% if request.resolver_match.app_name == 'protocols' %}active{% endif %}">INTERNET PROTOKOLLAR</a>
+            <a href="{% url 'attacks:list' %}" class="{% if request.resolver_match.app_name == 'attacks' %}active{% endif %}">KIBER HÜJÜMLER</a>
+            <a href="{% url 'defense:list' %}" class="{% if request.resolver_match.app_name == 'defense' %}active{% endif %}">KIBER GORAG PROGRAMMALAR</a>
+            <a href="{% url 'news:list' %}" class="{% if request.resolver_match.app_name == 'news' %}active{% endif %}">TÄZELIKLER</a>
+            <a href="{% url 'about:about' %}" class="{% if request.resolver_match.app_name == 'about' %}active{% endif %}">BIZ BARADA</a>
+          </div>
+
+          <div class="auth-group">
+            {% if user.is_authenticated %}
+              <a href="{% url 'accounts:profile' %}" class="btn btn-outline">Meniň profilim</a>
+              <a href="{% url 'accounts:logout' %}" class="btn btn-primary">Çykyş</a>
+            {% else %}
+              <a href="{% url 'accounts:login' %}" class="btn btn-outline">Giriş</a>
+              <a href="{% url 'accounts:register' %}" class="btn btn-primary">Agza Bol</a>
+            {% endif %}
+          </div>
+        </nav>
+      </div>
     </header>
-    <main>
+
+    <main class="container" style="padding-top: 40px; padding-bottom: 80px;">
       {% if messages %}
-        <div class="card">
+        <div class="alert-container">
           {% for message in messages %}
-            <div class="muted">{{ message }}</div>
+            <div class="alert alert-info glass">
+              <span>⚡</span> {{ message }}
+            </div>
           {% endfor %}
         </div>
       {% endif %}
+
       {% block content %}{% endblock %}
     </main>
+
+    <footer style="padding: 40px 0; border-top: 1px solid var(--border-main); margin-top: auto;">
+      <div class="container" style="text-align: center; color: var(--text-dim);">
+        <p>&copy; 2024 Kiberbilermen. Ähli hukuklar goralan.</p>
+        <p style="margin-top: 8px; font-size: 0.85rem;">Kiber howpsuzlyk — her birimiziň medeniýetimiz.</p>
+      </div>
+    </footer>
+
+    {% block extra_js %}{% endblock %}
   </body>
 </html>
-
