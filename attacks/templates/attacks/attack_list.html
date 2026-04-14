@@ -34,9 +34,9 @@
                 <a href="?{% if q %}q={{ q }}&{% endif %}" class="filter-link {% if not selected_type %}active{% endif %}">
                     Ähli Görnüşler
                 </a>
-                {% for value, label in types.choices %}
-                    <a href="?type={{ value }}{% if q %}&q={{ q }}{% endif %}" class="filter-link {% if selected_type == value %}active{% endif %}">
-                        {{ label }}
+                {% for cat in types %}
+                    <a href="?type={{ cat.id }}{% if q %}&q={{ q }}{% endif %}" class="filter-link {% if selected_type == cat.id|stringformat:'i' %}active{% endif %}">
+                        {{ cat.name }}
                         <span style="font-size: 0.7rem; opacity: 0.5;">⚡</span>
                     </a>
                 {% endfor %}
@@ -65,7 +65,7 @@
                             </div>
                             <div class="blog-card-content">
                                 <div class="blog-meta">
-                                    <span class="badge badge-dynamic_private">{{ attack.get_attack_type_display }}</span>
+                                    <span class="badge badge-dynamic_private">{{ attack.attack_type.name }}</span>
                                 </div>
                                 <h3 style="margin-bottom: 12px;">{{ attack.name }}</h3>
                                 <p style="font-size: 0.95rem; margin-bottom: 20px;">{{ attack.what_it_does|truncatewords:25 }}</p>

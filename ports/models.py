@@ -1,14 +1,20 @@
 from django.db import models
 
+class PortCategory(models.Model):
+    name = models.CharField(max_length=64, verbose_name="Ady")
+
+    class Meta:
+        verbose_name = "Port kategoriýasy"
+        verbose_name_plural = "Port kategoriýalary"
+
+    def __str__(self) -> str:
+        return self.name
+
+
 class Port(models.Model):
     class Transport(models.TextChoices):
         TCP = "tcp", "TCP"
         UDP = "udp", "UDP"
-
-    class Category(models.TextChoices):
-        WELL_KNOWN = "well_known", "Meşhur (Well-known)"
-        REGISTERED = "registered", "Hasaba alnan (Registered)"
-        DYNAMIC_PRIVATE = "dynamic_private", "Dinamyk/Hususy"
 
     number = models.PositiveIntegerField(verbose_name="Port belgisi")
     transport = models.CharField(
@@ -18,11 +24,13 @@ class Port(models.Model):
         verbose_name="Ulag protokoly"
     )
     service_name = models.CharField(max_length=64, verbose_name="Hyzmatyň ady")
-    category = models.CharField(
-        max_length=32, 
-        choices=Category.choices, 
-        default=Category.WELL_KNOWN,
-        verbose_name="Kategoriýasy"
+    category = models.ForeignKey(
+        PortCategory,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        verbose_name="Kategoriýasy",
+        related_name="ports"
     )
 
     what_it_does = models.TextField(verbose_name="Bu näme?")

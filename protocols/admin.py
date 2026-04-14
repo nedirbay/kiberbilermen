@@ -1,6 +1,12 @@
 from django.contrib import admin
 
-from .models import Protocol
+from .models import Protocol, ProtocolCategory
+
+
+@admin.register(ProtocolCategory)
+class ProtocolCategoryAdmin(admin.ModelAdmin):
+    list_display = ("name",)
+    search_fields = ("name",)
 
 
 @admin.register(Protocol)

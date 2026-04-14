@@ -1,15 +1,26 @@
 from django.db import models
 
-class DefenseTool(models.Model):
-    class Category(models.TextChoices):
-        ANTIVIRUS = "antivirus", "Antiwirus"
-        FIREWALL = "firewall", "Brandmauer (Firewall)"
-        IDS_IPS = "ids_ips", "IDS/IPS"
-        ENCRYPTION = "encryption", "Şifrlemek"
-        OTHER = "other", "Başga"
+class DefenseCategory(models.Model):
+    name = models.CharField(max_length=64, verbose_name="Ady")
 
+    class Meta:
+        verbose_name = "Goranyş kategoriýasy"
+        verbose_name_plural = "Goranyş kategoriýalary"
+
+    def __str__(self) -> str:
+        return self.name
+
+
+class DefenseTool(models.Model):
     name = models.CharField(max_length=64, unique=True, verbose_name="Ady")
-    category = models.CharField(max_length=24, choices=Category.choices, verbose_name="Kategoriýasy")
+    category = models.ForeignKey(
+        DefenseCategory,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        verbose_name="Kategoriýasy",
+        related_name="tools"
+    )
 
     why_needed = models.TextField(verbose_name="Näme üçin gerek?")
     how_it_works = models.TextField(verbose_name="Nähili işleýär?")

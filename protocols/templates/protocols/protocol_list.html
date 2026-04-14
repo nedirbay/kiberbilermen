@@ -20,8 +20,8 @@
             <label for="category">Gatlak (Layer)</label>
             <select name="category" id="category">
                 <option value="">Ählisi</option>
-                {% for value, label in categories.choices %}
-                    <option value="{{ value }}" {% if selected_category == value %}selected{% endif %}>{{ label }}</option>
+                {% for cat in categories %}
+                    <option value="{{ cat.id }}" {% if selected_category == cat.id|stringformat:'i' %}selected{% endif %}>{{ cat.name }}</option>
                 {% endfor %}
             </select>
         </div>
@@ -42,8 +42,8 @@
                         <div class="port-number-box" style="background: rgba(0, 187, 255, 0.05);">
                             <h2 style="font-size: 1.3rem; color: var(--secondary);">{{ p.name }}</h2>
                         </div>
-                        <span class="badge badge-{{ p.category }}">
-                            {{ p.get_category_display }}
+                        <span class="badge badge-registered">
+                            {{ p.category.name }}
                         </span>
                     </div>
                     

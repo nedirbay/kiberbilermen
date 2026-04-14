@@ -20,8 +20,8 @@
             <label for="category">Kategoriýa</label>
             <select name="category" id="category">
                 <option value="">Ählisi</option>
-                {% for value, label in categories.choices %}
-                    <option value="{{ value }}" {% if selected_category == value %}selected{% endif %}>{{ label }}</option>
+                {% for cat in categories %}
+                    <option value="{{ cat.id }}" {% if selected_category == cat.id|stringformat:'i' %}selected{% endif %}>{{ cat.name }}</option>
                 {% endfor %}
             </select>
         </div>
@@ -53,8 +53,8 @@
                             <h2>{{ p.number }}</h2>
                             <span>{{ p.transport|upper }}</span>
                         </div>
-                        <span class="badge badge-{{ p.category }}">
-                            {{ p.get_category_display }}
+                        <span class="badge badge-registered">
+                            {{ p.category.name }}
                         </span>
                     </div>
                     

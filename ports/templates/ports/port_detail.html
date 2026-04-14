@@ -16,8 +16,8 @@
         <div class="card glass" style="padding: 40px; margin-bottom: 32px;">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 24px;">
                 <h1 style="font-size: 3rem; color: var(--primary);">{{ port.service_name }}</h1>
-                <span class="badge badge-{{ port.category }}" style="font-size: 0.9rem; padding: 6px 16px;">
-                    {{ port.get_category_display }}
+                <span class="badge badge-registered" style="font-size: 0.9rem; padding: 6px 16px;">
+                    {{ port.category.name }}
                 </span>
             </div>
             

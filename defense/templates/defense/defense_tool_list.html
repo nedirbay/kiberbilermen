@@ -34,9 +34,9 @@
                 <a href="?{% if q %}q={{ q }}&{% endif %}" class="filter-link {% if not selected_category %}active{% endif %}">
                     Ähli Görnüşler
                 </a>
-                {% for value, label in categories.choices %}
-                    <a href="?category={{ value }}{% if q %}&q={{ q }}{% endif %}" class="filter-link {% if selected_category == value %}active{% endif %}" style="{% if selected_category == value %}background: rgba(0, 187, 255, 0.1); border-bottom-color: var(--secondary);{% endif %}">
-                        {{ label }}
+                {% for cat in categories %}
+                    <a href="?category={{ cat.id }}{% if q %}&q={{ q }}{% endif %}" class="filter-link {% if selected_category == cat.id|stringformat:'i' %}active{% endif %}" style="{% if selected_category == cat.id|stringformat:'i' %}background: rgba(0, 187, 255, 0.1); border-bottom-color: var(--secondary);{% endif %}">
+                        {{ cat.name }}
                         <span style="font-size: 0.7rem; opacity: 0.5;">🛡️</span>
                     </a>
                 {% endfor %}
@@ -65,7 +65,7 @@
                             </div>
                             <div class="blog-card-content">
                                 <div class="blog-meta">
-                                    <span class="badge" style="border-color: var(--secondary); color: var(--secondary);">{{ tool.get_category_display }}</span>
+                                    <span class="badge" style="border-color: var(--secondary); color: var(--secondary);">{{ tool.category.name }}</span>
                                 </div>
                                 <h3 style="margin-bottom: 12px;">{{ tool.name }}</h3>
                                 <p style="font-size: 0.95rem; margin-bottom: 20px;">{{ tool.why_needed|truncatewords:25 }}</p>

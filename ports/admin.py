@@ -1,6 +1,12 @@
 from django.contrib import admin
 
-from .models import Port
+from .models import Port, PortCategory
+
+
+@admin.register(PortCategory)
+class PortCategoryAdmin(admin.ModelAdmin):
+    list_display = ("name",)
+    search_fields = ("name",)
 
 
 @admin.register(Port)

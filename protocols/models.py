@@ -1,13 +1,26 @@
 from django.db import models
 
-class Protocol(models.Model):
-    class Category(models.TextChoices):
-        TRANSPORT = "transport", "Ulag"
-        APPLICATION = "application", "Amaly"
-        NETWORK = "network", "Tor"
+class ProtocolCategory(models.Model):
+    name = models.CharField(max_length=64, verbose_name="Ady")
 
+    class Meta:
+        verbose_name = "Protokol kategoriýasy"
+        verbose_name_plural = "Protokol kategoriýalary"
+
+    def __str__(self) -> str:
+        return self.name
+
+
+class Protocol(models.Model):
     name = models.CharField(max_length=32, unique=True, verbose_name="Ady")
-    category = models.CharField(max_length=32, choices=Category.choices, verbose_name="Kategoriýasy")
+    category = models.ForeignKey(
+        ProtocolCategory,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        verbose_name="Kategoriýasy",
+        related_name="protocols"
+    )
 
     purpose = models.TextField(verbose_name="Maksady")
     how_it_works = models.TextField(verbose_name="Nähili işleýär?")

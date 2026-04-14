@@ -1,16 +1,16 @@
 from django.shortcuts import get_object_or_404, render
 
-from .models import Port
+from .models import Port, PortCategory
 
 
 def port_list(request):
     ports = Port.objects.all()
-    category = request.GET.get("category")
+    category_id = request.GET.get("category")
     transport = request.GET.get("transport")
     query = request.GET.get("q")
 
-    if category:
-        ports = ports.filter(category=category)
+    if category_id:
+        ports = ports.filter(category_id=category_id)
     if transport:
         ports = ports.filter(transport=transport)
     if query:
@@ -21,9 +21,9 @@ def port_list(request):
         "ports/port_list.html",
         {
             "ports": ports,
-            "categories": Port.Category,
+            "categories": PortCategory.objects.all(),
             "transports": Port.Transport,
-            "selected_category": category or "",
+            "selected_category": category_id or "",
             "selected_transport": transport or "",
             "q": query or "",
         },

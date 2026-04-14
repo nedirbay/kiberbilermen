@@ -34,9 +34,9 @@
                 <a href="?{% if q %}q={{ q }}&{% endif %}" class="filter-link {% if not selected_category %}active{% endif %}">
                     Ähli Täzelikler
                 </a>
-                {% for value, label in categories.choices %}
-                    <a href="?category={{ value }}{% if q %}&q={{ q }}{% endif %}" class="filter-link {% if selected_category == value %}active{% endif %}">
-                        {{ label }}
+                {% for cat in categories %}
+                    <a href="?category={{ cat.id }}{% if q %}&q={{ q }}{% endif %}" class="filter-link {% if selected_category == cat.id|stringformat:'i' %}active{% endif %}">
+                        {{ cat.name }}
                         <span style="font-size: 0.7rem; opacity: 0.5;">📰</span>
                     </a>
                 {% endfor %}
@@ -65,7 +65,7 @@
                             </div>
                             <div class="blog-card-content">
                                 <div class="blog-meta">
-                                    <span class="badge badge-registered">{{ item.get_category_display }}</span>
+                                    <span class="badge badge-registered">{{ item.category.name }}</span>
                                     <span style="color: var(--text-dim); font-size: 0.85rem;">{{ item.published_at|date:"d.m.Y" }}</span>
                                 </div>
                                 <h3 style="margin-bottom: 12px;">{{ item.title }}</h3>

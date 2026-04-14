@@ -1,16 +1,16 @@
 from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404, render
 
-from .models import NewsItem
+from .models import NewsItem, NewsCategory
 
 
 def news_list(request):
     items_list = NewsItem.objects.all().order_by("-published_at")
-    category = request.GET.get("category")
+    category_id = request.GET.get("category")
     query = request.GET.get("q")
 
-    if category:
-        items_list = items_list.filter(category=category)
+    if category_id:
+        items_list = items_list.filter(category_id=category_id)
     if query:
         items_list = items_list.filter(title__icontains=query)
 
@@ -24,8 +24,8 @@ def news_list(request):
         "news/news_list.html",
         {
             "page_obj": page_obj,
-            "categories": NewsItem.Category,
-            "selected_category": category or "",
+            "categories": NewsCategory.objects.all(),
+            "selected_category": category_id or "",
             "q": query or "",
         },
     )

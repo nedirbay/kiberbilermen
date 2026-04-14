@@ -1,19 +1,25 @@
 from django.db import models
 
-class Attack(models.Model):
-    class AttackType(models.TextChoices):
-        PHISHING = "phishing", "Fişing"
-        DDOS = "ddos", "DDoS hüjümi"
-        MALWARE = "malware", "Zyýanly programma"
-        MITM = "mitm", "Aralygyndaky adam (MITM)"
-        OTHER = "other", "Başga"
-
+class AttackCategory(models.Model):
     name = models.CharField(max_length=64, verbose_name="Ady")
-    attack_type = models.CharField(
-        max_length=24, 
-        choices=AttackType.choices, 
-        default=AttackType.OTHER,
-        verbose_name="Görnüşi"
+
+    class Meta:
+        verbose_name = "Hüjüm kategoriýasy"
+        verbose_name_plural = "Hüjüm kategoriýalary"
+
+    def __str__(self) -> str:
+        return self.name
+
+
+class Attack(models.Model):
+    name = models.CharField(max_length=64, verbose_name="Ady")
+    attack_type = models.ForeignKey(
+        AttackCategory,
+        on_delete=models.SET_NULL,
+        null=True,
+        blank=True,
+        verbose_name="Kategoriýasy",
+        related_name="attacks"
     )
 
     what_it_does = models.TextField(verbose_name="Bu näme?")

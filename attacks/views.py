@@ -1,16 +1,16 @@
 from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404, render
 
-from .models import Attack
+from .models import Attack, AttackCategory
 
 
 def attack_list(request):
     attacks_list = Attack.objects.all()
-    attack_type = request.GET.get("type")
+    type_id = request.GET.get("type")
     query = request.GET.get("q")
 
-    if attack_type:
-        attacks_list = attacks_list.filter(attack_type=attack_type)
+    if type_id:
+        attacks_list = attacks_list.filter(attack_type_id=type_id)
     if query:
         attacks_list = attacks_list.filter(name__icontains=query)
 
@@ -24,8 +24,8 @@ def attack_list(request):
         "attacks/attack_list.html",
         {
             "page_obj": page_obj,
-            "types": Attack.AttackType,
-            "selected_type": attack_type or "",
+            "types": AttackCategory.objects.all(),
+            "selected_type": type_id or "",
             "q": query or "",
         },
     )

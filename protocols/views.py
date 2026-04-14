@@ -1,15 +1,15 @@
 from django.shortcuts import get_object_or_404, render
 
-from .models import Protocol
+from .models import Protocol, ProtocolCategory
 
 
 def protocol_list(request):
     protocols = Protocol.objects.all()
-    category = request.GET.get("category")
+    category_id = request.GET.get("category")
     query = request.GET.get("q")
 
-    if category:
-        protocols = protocols.filter(category=category)
+    if category_id:
+        protocols = protocols.filter(category_id=category_id)
     if query:
         protocols = protocols.filter(name__icontains=query)
 
@@ -18,8 +18,8 @@ def protocol_list(request):
         "protocols/protocol_list.html",
         {
             "protocols": protocols,
-            "categories": Protocol.Category,
-            "selected_category": category or "",
+            "categories": ProtocolCategory.objects.all(),
+            "selected_category": category_id or "",
             "q": query or "",
         },
     )

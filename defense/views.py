@@ -1,16 +1,16 @@
 from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404, render
 
-from .models import DefenseTool
+from .models import DefenseTool, DefenseCategory
 
 
 def defense_tool_list(request):
     tools_list = DefenseTool.objects.all()
-    category = request.GET.get("category")
+    category_id = request.GET.get("category")
     query = request.GET.get("q")
 
-    if category:
-        tools_list = tools_list.filter(category=category)
+    if category_id:
+        tools_list = tools_list.filter(category_id=category_id)
     if query:
         tools_list = tools_list.filter(name__icontains=query)
 
@@ -24,8 +24,8 @@ def defense_tool_list(request):
         "defense/defense_tool_list.html",
         {
             "page_obj": page_obj,
-            "categories": DefenseTool.Category,
-            "selected_category": category or "",
+            "categories": DefenseCategory.objects.all(),
+            "selected_category": category_id or "",
             "q": query or "",
         },
     )
