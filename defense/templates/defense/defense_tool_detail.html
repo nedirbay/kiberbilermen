@@ -19,6 +19,12 @@
         <p style="color: var(--text-muted); font-size: 1.2rem;">Maglumat goragynyň iň täsirli gurallarynyň biri.</p>
     </header>
 
+    {% if tool.image %}
+        <div class="card glass" style="overflow: hidden; margin-bottom: 48px; max-height: 400px;">
+            <img src="{{ tool.image.url }}" alt="{{ tool.name }}" style="width: 100%; height: auto; display: block; object-fit: cover;">
+        </div>
+    {% endif %}
+
     <div class="post-content">
         <section>
             <h2>Näme üçin gerek?</h2>

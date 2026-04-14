@@ -13,6 +13,7 @@ class DefenseTool(models.Model):
 
     why_needed = models.TextField()
     how_it_works = models.TextField()
+    image = models.ImageField(upload_to='defense/', blank=True, null=True)
 
     class Meta:
         ordering = ["category", "name"]

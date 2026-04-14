@@ -11,7 +11,7 @@ class NewsItem(models.Model):
     content = models.TextField()
     published_at = models.DateField()
     category = models.CharField(max_length=32, choices=Category.choices, default=Category.OTHER)
-    image_url = models.URLField(blank=True)
+    image = models.ImageField(upload_to='news/', blank=True, null=True)
 
     created_at = models.DateTimeField(auto_now_add=True)
 

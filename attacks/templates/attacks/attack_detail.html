@@ -19,6 +19,12 @@
         <p style="color: var(--text-muted); font-size: 1.2rem;">Hüjümiň weýran ediji güýji we işleýiş prinsipi.</p>
     </header>
 
+    {% if attack.image %}
+        <div class="card glass" style="overflow: hidden; margin-bottom: 48px; max-height: 400px;">
+            <img src="{{ attack.image.url }}" alt="{{ attack.name }}" style="width: 100%; height: auto; display: block; object-fit: cover;">
+        </div>
+    {% endif %}
+
     <div class="post-content">
         <section>
             <h2>Näme edýär?</h2>

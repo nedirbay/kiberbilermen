@@ -16,6 +16,7 @@ class Attack(models.Model):
     goal = models.TextField(blank=True)
     example = models.TextField(blank=True)
     prevention = models.TextField(blank=True)
+    image = models.ImageField(upload_to='attacks/', blank=True, null=True)
 
     class Meta:
         ordering = ["attack_type", "name"]

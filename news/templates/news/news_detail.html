@@ -21,9 +21,9 @@
         </div>
     </header>
 
-    {% if item.image_url %}
+    {% if item.image %}
         <div class="card glass" style="overflow: hidden; margin-bottom: 48px; max-height: 500px;">
-            <img src="{{ item.image_url }}" alt="{{ item.title }}" style="width: 100%; height: auto; display: block;">
+            <img src="{{ item.image.url }}" alt="{{ item.title }}" style="width: 100%; height: auto; display: block;">
         </div>
     {% endif %}
 

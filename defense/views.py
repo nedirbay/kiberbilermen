@@ -1,23 +1,29 @@
+from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404, render
 
 from .models import DefenseTool
 
 
 def defense_tool_list(request):
-    tools = DefenseTool.objects.all()
+    tools_list = DefenseTool.objects.all()
     category = request.GET.get("category")
     query = request.GET.get("q")
 
     if category:
-        tools = tools.filter(category=category)
+        tools_list = tools_list.filter(category=category)
     if query:
-        tools = tools.filter(name__icontains=query)
+        tools_list = tools_list.filter(name__icontains=query)
+
+    # Pagination: 9 items per page (3x3 grid)
+    paginator = Paginator(tools_list, 9)
+    page_number = request.GET.get("page")
+    page_obj = paginator.get_page(page_number)
 
     return render(
         request,
         "defense/defense_tool_list.html",
         {
-            "tools": tools,
+            "page_obj": page_obj,
             "categories": DefenseTool.Category,
             "selected_category": category or "",
             "q": query or "",
